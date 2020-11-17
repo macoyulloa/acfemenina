@@ -117,7 +117,7 @@ conditions = [
 
 values = [0, 21, 5, 1, 3, 22, 6, 23, 3, 7, 8, 4, 8, 6, 3, 6, 3, 6, 4,
           6, 3, 21, 22, 23, 6, 3, 6, 8, 4, 3, 6, 21, 23, 22, 23, 6, 22,
-          6, 23, 33, 3, 8, 3, 22, 6, 21, 22, 9, 6, 9, 6, 8, 6, 8, 6,
+          6, 23, 22, 3, 8, 3, 22, 6, 21, 22, 9, 6, 9, 6, 8, 6, 8, 6,
           8, 23, 9, 8, 5, 4, 8, 3, 21, 22, 23, 8, 7]
 
 # create a new column. Asignar los valores dependiendo de las condiciones
@@ -270,7 +270,7 @@ conditions = [
 
 values = [0, 21, 5, 1, 3, 22, 6, 23, 3, 7, 8, 4, 8, 6, 3, 6, 3, 6, 4,
           6, 3, 21, 22, 23, 6, 3, 6, 8, 4, 3, 6, 21, 23, 22, 23, 6, 22,
-          6, 23, 33, 3, 8, 3, 22, 6, 21, 22, 9, 6, 9, 6, 8, 6, 8, 6,
+          6, 23, 22, 3, 8, 3, 22, 6, 21, 22, 9, 6, 9, 6, 8, 6, 8, 6,
           8, 23, 9, 8, 5, 4, 8, 3, 21, 22, 23, 8, 7]
 
 # create a new column. Asignar los valores dependiendo de las condiciones
@@ -425,7 +425,7 @@ conditions = [
 
 values = [0, 21, 5, 1, 3, 22, 6, 23, 3, 7, 8, 4, 8, 6, 3, 6, 3, 6, 4,
           6, 3, 21, 22, 23, 6, 3, 6, 8, 4, 3, 6, 21, 23, 22, 23, 6, 22,
-          6, 23, 33, 3, 8, 3, 22, 6, 21, 22, 9, 6, 9, 6, 8, 6, 8, 6,
+          6, 23, 22, 3, 8, 3, 22, 6, 21, 22, 9, 6, 9, 6, 8, 6, 8, 6,
           8, 23, 9, 8, 5, 4, 8, 3, 21, 22, 23, 8, 7]
 
 # create a new column. Asignar los valores dependiendo de las condiciones
@@ -462,6 +462,7 @@ df_2020.drop(index_names, inplace=True)
 # print(df_2020.groupby(['categoria_suc']).first())
 print(df_2020.head())
 print(len(df_2020.index))
+print(df_2020.columns.values)
 
 df_2020.to_csv('./contabilidad_limpios/Auxiliar_Donantes_2020.csv',
                index=False, encoding='utf-8')

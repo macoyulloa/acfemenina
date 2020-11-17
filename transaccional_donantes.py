@@ -35,6 +35,14 @@ df_2018 = df_2018.join((df1_2018.groupby(['cod_ter']).first())[
 df_2018 = df_2018.join((df1_2018.groupby(['cod_ter']).first())[
                        'categoria_cco'].to_frame().rename(
                            columns={'categoria_cco': 'categ_cco_2018'}))
+# columna codigo de sucursal
+df_2018 = df_2018.join((df1_2018.groupby(['cod_ter']).first())[
+                       'cod_suc'].to_frame().rename(
+                           columns={'cod_suc': 'cod_suc_2018'}))
+# columna codigo de centro de costo
+df_2018 = df_2018.join((df1_2018.groupby(['cod_ter']).first())[
+                       'cod_cco'].to_frame().rename(
+                           columns={'cod_cco': 'cod_cco_2018'}))
 
 print(df_2018.head())
 
@@ -71,6 +79,14 @@ df_2019 = df_2019.join((df1_2019.groupby(['cod_ter']).first())[
 df_2019 = df_2019.join((df1_2019.groupby(['cod_ter']).first())[
                        'categoria_cco'].to_frame().rename(
                            columns={'categoria_cco': 'categ_cco_2019'}))
+# columna codigo de sucursal
+df_2019 = df_2019.join((df1_2019.groupby(['cod_ter']).first())[
+                       'cod_suc'].to_frame().rename(
+                           columns={'cod_suc': 'cod_suc_2019'}))
+# columna codigo de centro de costo
+df_2019 = df_2019.join((df1_2019.groupby(['cod_ter']).first())[
+                       'cod_cco'].to_frame().rename(
+                           columns={'cod_cco': 'cod_cco_2019'}))
 
 print(df_2019.head())
 
@@ -107,7 +123,15 @@ df_2020 = df_2020.join((df1_2020.groupby(['cod_ter']).first())[
 df_2020 = df_2020.join((df1_2020.groupby(['cod_ter']).first())[
                        'categoria_cco'].to_frame().rename(
                            columns={'categoria_cco': 'categ_cco_2020'}))
-
+# columna codigo de sucursal
+df_2020 = df_2020.join((df1_2020.groupby(['cod_ter']).first())[
+                       'cod_suc'].to_frame().rename(
+                           columns={'cod_suc': 'cod_suc_2020'}))
+# columna codigo de centro de costo
+df_2020 = df_2020.join((df1_2020.groupby(['cod_ter']).first())[
+                       'cod_cco'].to_frame().rename(
+                           columns={'cod_cco': 'cod_cco_2020'}))
+print(df_2020.columns.values)
 print(df_2020.head())
 
 
@@ -130,7 +154,7 @@ df_total['variacion_%_2018-2019'] = (df_total['variacion_2018-2019'] /
 df_total['variacion_%_2019-2020'] = (df_total['variacion_2019-2020'] /
                                      df_total['total_2019']) * 100
 df_total.fillna(0, inplace=True)
-# print(df_total.columns.values)
+print(df_total.columns.values)
 
 df_total.to_csv('./bd_finales/bd_transaccional_donantes_ano_ano.csv',
                 encoding='utf-8')
