@@ -31,13 +31,13 @@ print(df.columns.values)
 fig, (ax1, ax2) = plt.subplots(1, 2)
 fig.suptitle(
     'Insights: información caracteristica vs transaccional de donante cooperadoras')
-df[['total_2018', 'total_2019', 'total_2020']].sum().plot(ax=ax1, figsize=(20, 10),
-                                                          colors=color)
+df[['total_2018', 'total_2019', 'total_2020']
+   ].sum().plot(ax=ax1, figsize=(20, 10))
 ax1.set_xlabel('Año')
 ax1.set_ylabel('Monto donado en miles de millones de pesos')
 ax1.set_title("Tendencia del monto de donación acumulado año a año")
 df.groupby(['centro'])[['total_2018', 'total_2019',
-                        'total_2020']].sum().plot(ax=ax2, colors=color)
+                        'total_2020']].sum().plot(ax=ax2)
 ax2.set_xlabel('Centro cultural')
 ax2.set_ylabel('Monto donado en miles de millones de pesos')
 ax2.set_title('Tendencia año a año del monto donado por centro')
@@ -101,7 +101,55 @@ for ax in fig.axes:
 fig.savefig('./images/cooperadoras/cooperadoras_descriptivo_3.png')
 # plt.show()
 
+# Top sucursal: centor cultural fuente de cada donacion año a año
+gs = gridspec.GridSpec(2, 2)
+fig = plt.figure()
+fig.suptitle(
+    'Insights: información caracteristica vs transaccional de donante cooperadoras')
+ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
+df1 = df.groupby(['categ_suc_2018', 'cod_suc_2018'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_suc_2018'] == 1.0]
+df1['nom_suc'] = ['Cedro', 'Nogal', 'Portones', 'Torreon', 'Arboleda',
+                  'Naval', 'Torr-C.E.', 'Neiva', 'Mirabal', 'Serrania']
+df1.drop(columns=['categ_suc_2018', 'cod_suc_2018'], inplace=True)
+df1.set_index('nom_suc', inplace=True)
+df1.plot.bar(ax=ax1, legend=False)
+# ax1.set_xlabel('Centro Cultural')
+ax1.set_ylabel('Número de DOnaciones')
+ax1.set_title("Sucursal: Centro Cultural 2018")
+ax2 = fig.add_subplot(gs[0, 1])
+df1 = df.groupby(['categ_suc_2019', 'cod_suc_2019'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_suc_2019'] == 1.0]
+df1['nom_suc'] = ['Cedro', 'Nogal', 'Portones', 'Torreon', 'Arboleda',
+                  'Naval', 'Neiva', 'Serrania']
+df1.drop(columns=['categ_suc_2019', 'cod_suc_2019'], inplace=True)
+df1.set_index('nom_suc', inplace=True)
+df1.plot.bar(ax=ax2, figsize=(20, 10), legend=False)
+# ax2.set_xlabel('Centro Cultural')
+ax2.set_ylabel('Número de Donaciones')
+ax2.set_title("Sucursal: Centro Cultural 2019")
+ax3 = fig.add_subplot(gs[1, :])
+df1 = df.groupby(['categ_suc_2020', 'cod_suc_2020'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_suc_2020'] == 1.0]
+df1['nom_suc'] = ['Cedro', 'Nogal', 'Portones', 'Torreon', 'Arboleda',
+                  'Naval', 'Neiva', 'Serrania']
+df1.drop(columns=['categ_suc_2020', 'cod_suc_2020'], inplace=True)
+df1.set_index('nom_suc', inplace=True)
+df1.plot.bar(ax=ax3, figsize=(20, 10), legend=False)
+ax3.set_xlabel('Centro Cultural')
+ax3.set_ylabel('Número de Donaciones')
+ax3.set_title("Sucursal: Centro Cultural 2020")
+for ax in fig.axes:
+    plt.sca(ax)
+    plt.xticks(rotation=17)
+fig.savefig('./images/cooperadoras/cooperadoras_descriptivo_3_1.png')
+# plt.show()
+
 # centro de costos destino de cada donacion
+#print(df.groupby(['categ_cco_2018', 'cod_ter', 'nombre']).first())
 gs = gridspec.GridSpec(2, 2)
 fig = plt.figure()
 fig.suptitle(
@@ -122,6 +170,7 @@ labels = ['0. No aplica', '21. Donante Cooperadoras',
           '6. Eventos, Actividades y Productos']
 ax1.legend(lines, labels, title="Categoría de Centro de Costos",
            ncol=1, loc='upper right', prop={'size': 8})
+#print(df.groupby(['categ_cco_2019', 'cod_ter', 'nombre']).first())
 ax2 = fig.add_subplot(gs[0, 1])  # row 0, col 1
 df.groupby(['categ_cco_2019'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).plot.bar(ax=ax2, figsize=(20, 10),
@@ -138,6 +187,7 @@ labels = ['0. No aplica', '21. Donante Cooperadoras',
           '6. Eventos, Actividades y Productos']
 ax2.legend(lines, labels, title="Categoría de Centro de Costos",
            ncol=1, loc='upper right', prop={'size': 8})
+#print(df.groupby(['categ_cco_2020', 'cod_ter', 'nombre']).first())
 ax3 = fig.add_subplot(gs[1, :])  # row 1, span all columns
 df.groupby(['categ_cco_2020'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).plot.bar(ax=ax3, figsize=(20, 10),
@@ -158,6 +208,52 @@ for ax in fig.axes:
     plt.xticks(rotation=0)
 fig.savefig('./images/cooperadoras/cooperadoras_descriptivo_4.png')
 # plt.show()
+
+# Top centro de costo: destino de cada donacion año a año
+gs = gridspec.GridSpec(2, 2)
+fig = plt.figure()
+fig.suptitle(
+    'Insights: información caracteristica vs transaccional de donante cooperadoras')
+ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
+df1 = df.groupby(['categ_cco_2018', 'cod_cco_2018'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_cco_2018'] == 21.0]
+df1['nom_cco'] = ['Cooperadora']
+df1.drop(columns=['categ_cco_2018', 'cod_cco_2018'], inplace=True)
+df1.set_index('nom_cco', inplace=True)
+df1.plot.bar(ax=ax1, legend=False)
+ax1.set_xlabel('')
+ax1.set_ylabel('Número de Donaciones')
+ax1.set_title("Centro de costos: Cooperadora 2018")
+ax2 = fig.add_subplot(gs[0, 1])
+df1 = df.groupby(['categ_cco_2019', 'cod_cco_2019'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_cco_2019'] == 21.0]
+print(df1)
+df1['nom_cco'] = ['Coop Casa Nueva', 'F. Cooperadoras', 'P. Cooperadoras']
+df1.drop(columns=['categ_cco_2019', 'cod_cco_2019'], inplace=True)
+df1.set_index('nom_cco', inplace=True)
+df1.plot.bar(ax=ax2, legend=False)
+ax2.set_xlabel('')
+ax2.set_ylabel('Número de Donaciones')
+ax2.set_title("Centro de costos: Cooperadora 2019")
+ax3 = fig.add_subplot(gs[1, :])
+df1 = df.groupby(['categ_cco_2020', 'cod_cco_2020'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_cco_2020'] == 21.0]
+print(df1)
+df1['nom_cco'] = ['F. Cooperadoras', 'P. Cooperadoras']
+df1.drop(columns=['categ_cco_2020', 'cod_cco_2020'], inplace=True)
+df1.set_index('nom_cco', inplace=True)
+df1.plot.bar(ax=ax3, figsize=(20, 10), legend=False)
+ax3.set_xlabel('Tipo de Donante Cooperadora')
+ax3.set_ylabel('Número de Donaciones')
+ax3.set_title("Centro de costos: Cooperadora 2020")
+for ax in fig.axes:
+    plt.sca(ax)
+    plt.xticks(rotation=0)
+fig.savefig('./images/cooperadoras/cooperadoras_descriptivo_4_1.png')
+plt.show()
 
 # cuantos donaron mas de 1 vez
 # cuantas cooperadoras donaron más de a una causa
@@ -251,7 +347,6 @@ for ax in fig.axes:
     plt.xticks(rotation=210)
 fig.savefig('./images/cooperadoras/cooperadoras_descriptivo_6.png')
 # plt.show()
-
 
 
 ##########################################################
