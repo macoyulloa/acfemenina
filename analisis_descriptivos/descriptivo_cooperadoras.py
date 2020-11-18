@@ -51,50 +51,38 @@ fig = plt.figure()
 fig.suptitle(
     'Insights: información caracteristica vs transaccional de donante cooperadoras')
 ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
-df.groupby(['categ_suc_2018'])['cod_ter'].count(
-).to_frame().sort_values('cod_ter', ascending=False).plot.bar(ax=ax1, figsize=(20, 10),
-                                                              colors=color)
+df1 = df.groupby(['categ_suc_2018'])['cod_ter'].count(
+).to_frame().sort_values('cod_ter', ascending=False)
+df1['sucursal'] = ['centros', 'no aplica', 'labores sociales', 'ACF']
+df1.reset_index(inplace=True)
+df1.drop(columns=['categ_suc_2018'], inplace=True)
+df1.set_index('sucursal', inplace=True)
+df1.plot.bar(ax=ax1, figsize=(20, 10), colors=color, legend=False)
 ax1.set_xlabel('Sucursal')
 ax1.set_ylabel('Número de Donaciones')
-ax1.set_title("Sucursal de cada Donación 2018")
-colors = ['blue', 'blue', 'blue', 'blue']
-lines = [Line2D([0], [0], color=c, linewidth=2)
-         for c in colors]
-labels = ['0. No aplica', '1. Centros',
-          '2. ACF',
-          '3. Labores sociales']
-ax1.legend(lines, labels, title="Categoría de Sucursales",
-           ncol=1, loc='upper right', prop={'size': 8})
+ax1.set_title("Sucursal de Donaciones 2018")
 ax2 = fig.add_subplot(gs[0, 1])
-df.groupby(['categ_suc_2019'])['cod_ter'].count(
-).to_frame().sort_values('cod_ter', ascending=False).plot.bar(ax=ax2, figsize=(20, 10),
-                                                              colors=color)
+df1 = df.groupby(['categ_suc_2019'])['cod_ter'].count(
+).to_frame().sort_values('cod_ter', ascending=False)
+df1['sucursal'] = ['centros', 'no aplica', 'ACF', 'labores sociales']
+df1.reset_index(inplace=True)
+df1.drop(columns=['categ_suc_2019'], inplace=True)
+df1.set_index('sucursal', inplace=True)
+df1.plot.bar(ax=ax2, figsize=(20, 10), colors=color, legend=False)
 ax2.set_xlabel('Sucursal')
 ax2.set_ylabel('Número de Donaciones')
-ax2.set_title("Sucursal de cada Donación 2019")
-colors = ['blue', 'blue', 'blue', 'blue']
-lines = [Line2D([0], [0], color=c, linewidth=2)
-         for c in colors]
-labels = ['0. No aplica', '1. Centros',
-          '2. ACF',
-          '3. Labores sociales']
-ax2.legend(lines, labels, title="Categoría de Sucursales",
-           ncol=1, loc='upper right', prop={'size': 8})
+ax2.set_title("Sucursal de Donaciones 2019")
 ax3 = fig.add_subplot(gs[1, :])
-df.groupby(['categ_suc_2020'])['cod_ter'].count(
-).to_frame().sort_values('cod_ter', ascending=False).plot.bar(ax=ax3, figsize=(20, 10),
-                                                              colors=color)
+df1 = df.groupby(['categ_suc_2020'])['cod_ter'].count(
+).to_frame().sort_values('cod_ter', ascending=False)
+df1['sucursal'] = ['centros', 'no aplica', 'labores sociales', 'ACF']
+df1.reset_index(inplace=True)
+df1.drop(columns=['categ_suc_2020'], inplace=True)
+df1.set_index('sucursal', inplace=True)
+df1.plot.bar(ax=ax3, figsize=(20, 10), colors=color, legend=False)
 ax3.set_xlabel('Sucursal')
 ax3.set_ylabel('Número de Donaciones')
-ax3.set_title("Sucursal de cada Donación 2020")
-colors = ['blue', 'blue', 'blue', 'blue']
-lines = [Line2D([0], [0], color=c, linewidth=2)
-         for c in colors]
-labels = ['0. No aplica', '1. Centros',
-          '2. ACF',
-          '3. Labores sociales']
-ax3.legend(lines, labels, title="Categoría de Sucursales",
-           ncol=1, loc='upper right', prop={'size': 8})
+ax3.set_title("Sucursal de Donaciones 2020")
 for ax in fig.axes:
     plt.sca(ax)
     plt.xticks(rotation=0)
@@ -115,7 +103,7 @@ df1['nom_suc'] = ['Cedro', 'Nogal', 'Portones', 'Torreon', 'Arboleda',
 df1.drop(columns=['categ_suc_2018', 'cod_suc_2018'], inplace=True)
 df1.set_index('nom_suc', inplace=True)
 df1.plot.bar(ax=ax1, legend=False)
-# ax1.set_xlabel('Centro Cultural')
+ax1.set_xlabel('Centro Cultural')
 ax1.set_ylabel('Número de DOnaciones')
 ax1.set_title("Sucursal: Centro Cultural 2018")
 ax2 = fig.add_subplot(gs[0, 1])
@@ -127,7 +115,7 @@ df1['nom_suc'] = ['Cedro', 'Nogal', 'Portones', 'Torreon', 'Arboleda',
 df1.drop(columns=['categ_suc_2019', 'cod_suc_2019'], inplace=True)
 df1.set_index('nom_suc', inplace=True)
 df1.plot.bar(ax=ax2, figsize=(20, 10), legend=False)
-# ax2.set_xlabel('Centro Cultural')
+ax2.set_xlabel('Centro Cultural')
 ax2.set_ylabel('Número de Donaciones')
 ax2.set_title("Sucursal: Centro Cultural 2019")
 ax3 = fig.add_subplot(gs[1, :])
@@ -155,57 +143,41 @@ fig = plt.figure()
 fig.suptitle(
     'Insights: información caracteristica vs transaccional de donante cooperadoras')
 ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
-df.groupby(['categ_cco_2018'])['cod_ter'].count(
-).to_frame().sort_values('cod_ter', ascending=False).plot.bar(ax=ax1, figsize=(20, 10),
-                                                              colors=color)
+df1 = df.groupby(['categ_cco_2018'])['cod_ter'].count().to_frame(
+).sort_values('cod_ter', ascending=False).reset_index()
+df1['cco'] = ['D cooperadoras', 'No Aplica',
+              'Eventos/Act/Prod', 'D Particulares']
+df1.drop(columns=['categ_cco_2018'], inplace=True)
+df1.set_index('cco', inplace=True)
+df1.plot.bar(ax=ax1, legend=False, figsize=(20, 10))
 ax1.set_xlabel('Centro de Costo')
 ax1.set_ylabel('Número de Donaciones')
 ax1.set_title("Centros de Costos de cada Donación 2018")
-colors = ['blue', 'blue', 'blue', 'blue', 'blue']
-lines = [Line2D([0], [0], color=c, linewidth=2)
-         for c in colors]
-labels = ['0. No aplica', '21. Donante Cooperadoras',
-          '22. Donante Particulares',
-          '4. Mantenimiento de centros',
-          '6. Eventos, Actividades y Productos']
-ax1.legend(lines, labels, title="Categoría de Centro de Costos",
-           ncol=1, loc='upper right', prop={'size': 8})
-#print(df.groupby(['categ_cco_2019', 'cod_ter', 'nombre']).first())
 ax2 = fig.add_subplot(gs[0, 1])  # row 0, col 1
-df.groupby(['categ_cco_2019'])['cod_ter'].count(
-).to_frame().sort_values('cod_ter', ascending=False).plot.bar(ax=ax2, figsize=(20, 10),
-                                                              colors=color)
+df1 = df.groupby(['categ_cco_2019'])['cod_ter'].count().to_frame(
+).sort_values('cod_ter', ascending=False).reset_index()
+df1['cco'] = ['D cooperadoras', 'No Aplica', 'Eventos/Act/Prod', 'D Particulares',
+              'Manten centros']
+df1.drop(columns=['categ_cco_2019'], inplace=True)
+df1.set_index('cco', inplace=True)
+df1.plot.bar(ax=ax2, figsize=(20, 10), legend=False)
 ax2.set_xlabel('Centro de Costo')
 ax2.set_ylabel('Número de Donaciones')
 ax2.set_title("Centros de Costos de cada Donación 2019")
-colors = ['blue', 'blue', 'blue', 'blue', 'blue']
-lines = [Line2D([0], [0], color=c, linewidth=2)
-         for c in colors]
-labels = ['0. No aplica', '21. Donante Cooperadoras',
-          '22. Donante Particulares',
-          '4. Mantenimiento de centros',
-          '6. Eventos, Actividades y Productos']
-ax2.legend(lines, labels, title="Categoría de Centro de Costos",
-           ncol=1, loc='upper right', prop={'size': 8})
-#print(df.groupby(['categ_cco_2020', 'cod_ter', 'nombre']).first())
 ax3 = fig.add_subplot(gs[1, :])  # row 1, span all columns
-df.groupby(['categ_cco_2020'])['cod_ter'].count(
-).to_frame().sort_values('cod_ter', ascending=False).plot.bar(ax=ax3, figsize=(20, 10),
-                                                              colors=color)
+df1 = df.groupby(['categ_cco_2020'])['cod_ter'].count().to_frame(
+).sort_values('cod_ter', ascending=False).reset_index()
+df1['cco'] = ['D cooperadoras', 'No Aplica', 'D Particulares', 'Eventos/Act/Prod',
+              'Manten centros']
+df1.drop(columns=['categ_cco_2020'], inplace=True)
+df1.set_index('cco', inplace=True)
+df1.plot.bar(ax=ax3, figsize=(20, 10), legend=False)
 ax3.set_xlabel('Centro de Costo')
 ax3.set_ylabel('Número de Donaciones')
 ax3.set_title("Centros de Costos de cada Donación 2020")
-colors = ['blue', 'blue', 'blue', 'blue', 'blue', 'blue']
-lines = [Line2D([0], [0], color=c, linewidth=2)
-         for c in colors]
-labels = ['0. No aplica', '21. Donante Cooperadoras',
-          '22. Donante Particulares', '33. Donante Empresas',
-          '4. Mantenimiento de centros', '6. Eventos, Actividades y Productos']
-ax3.legend(lines, labels, title="Categoría de Centro de Costos",
-           ncol=1, loc='upper right', prop={'size': 8})
 for ax in fig.axes:
     plt.sca(ax)
-    plt.xticks(rotation=0)
+    plt.xticks(rotation=10)
 fig.savefig('./images/cooperadoras/cooperadoras_descriptivo_4.png')
 # plt.show()
 
@@ -253,7 +225,7 @@ for ax in fig.axes:
     plt.sca(ax)
     plt.xticks(rotation=0)
 fig.savefig('./images/cooperadoras/cooperadoras_descriptivo_4_1.png')
-plt.show()
+# plt.show()
 
 # cuantos donaron mas de 1 vez
 # cuantas cooperadoras donaron más de a una causa
@@ -306,7 +278,7 @@ df_1 = pd.DataFrame(data, index=['2018', '2019', '2020'],
 fig, ax = plt.subplots(figsize=(20, 10))
 fig.suptitle(
     'Insights: información caracteristica vs transaccional de donante cooperadoras')
-df_1.plot.bar(ax=ax, colors=color)
+df_1.plot.bar(ax=ax)
 ax.set_xlabel('Año')
 ax.set_ylabel('Cantidad de donantes')
 ax.set_title("Donantes cooperadoras que donaron a más de una causa")
@@ -324,21 +296,21 @@ fig.suptitle(
 ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
 df.groupby(['profesion', 'categ_cco_2018'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).head(10).plot.bar(ax=ax1, figsize=(20, 10),
-                                                                       colors=color)
+                                                                       legend=False)
 ax1.set_xlabel('Profesion / Centro de Costo')
 ax1.set_ylabel('Número de Donaciones')
 ax1.set_title("Profesion VS Centro de costos 2018")
 ax2 = fig.add_subplot(gs[0, 1])  # row 0, col 1
 df.groupby(['profesion', 'categ_cco_2019'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).head(10).plot.bar(ax=ax2, figsize=(20, 10),
-                                                                       colors=color)
+                                                                       legend=False)
 ax2.set_xlabel('Profesion / Centro de Costo')
 ax2.set_ylabel('Número de Donaciones')
 ax2.set_title("Profesion VS Centro de costos 2019")
 ax3 = fig.add_subplot(gs[1, :])  # row 1, span all columns
 df.groupby(['profesion', 'categ_cco_2020'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).head(10).plot.bar(ax=ax3, figsize=(20, 10),
-                                                                       colors=color)
+                                                                       legend=False)
 ax3.set_xlabel('Profesion / Centro de Costo')
 ax3.set_ylabel('Número de Donaciones')
 ax3.set_title("Profesion VS Centro de costos 2020")
@@ -408,22 +380,21 @@ fig.savefig('./images/cooperadoras/cooperadoras_descriptivo_2.png')
 fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
 fig.suptitle(
     'Insights: información caracteristica vs transaccional de donante cooperadoras')
-df.groupby(['misma_sucursal']).size().plot.pie(ax=ax1, colors=color,
+df.groupby(['misma_sucursal']).size().plot.pie(ax=ax1,
                                                autopct='%1.1f%%',
                                                counterclock=False)
 ax1.set_title("Misma sucrusal durante los tres años?")
 df.groupby(['misma_sucursal'])[
-    'donacion_total'].sum().plot.bar(ax=ax2, colors=color)
+    'donacion_total'].sum().plot.bar(ax=ax2)
 ax2.set_xlabel('')
 ax2.set_ylabel('Monto acum (miles millones de cop)')
 ax2.set_title("Sucursal vs monto total donado")
 df.groupby(['misma_causa']).size().plot.pie(ax=ax3, figsize=(20, 10),
-                                            colors=color,
                                             autopct='%1.1f%%',
                                             counterclock=False)
 ax3.set_title("Donó a un mismo centro de costos durante los 3 años")
 df.groupby(['misma_causa'])[
-    'donacion_total'].sum().plot.bar(ax=ax4, colors=color)
+    'donacion_total'].sum().plot.bar(ax=ax4)
 ax4.set_xlabel('Si donaron o no al mismo centro de costos')
 ax4.set_ylabel('Monto acum (miles millones de cop)')
 ax4.set_title("Aderencia con el centro de costos vs monto total donado")
@@ -514,13 +485,12 @@ fig.suptitle(
 df2 = df.groupby(['profesion']).size(
 ).to_frame().sort_values(0, ascending=False)
 df2 = df2.head(15)
-df2.plot.bar(ax=ax1, figsize=(20, 10),
-             colors=color)
+df2.plot.bar(ax=ax1, figsize=(20, 10))
 ax1.set_xlabel('Profesion')
 ax1.set_ylabel('Número de donantes cooperadoras (personas)')
-colors = ['purple', 'purple', 'purple', 'purple', 'purple',
-          'purple', 'purple', 'purple', 'purple', 'purple',
-          'purple', 'purple', 'purple', 'purple', 'purple']
+colors = ['blue', 'blue', 'blue', 'blue', 'blue',
+          'blue', 'blue', 'blue', 'blue', 'blue',
+          'blue', 'blue', 'blue', 'blue', 'blue']
 lines = [Line2D([0], [0], color=c, linewidth=2)
          for c in colors]
 labels = [
@@ -530,18 +500,16 @@ labels = [
     'Psicologa', 'Arquitecta', 'Comunicadora Social',
     'Odontologa', 'Comunicadora social', 'Psicóloga',
     'Fisioterapeuta']
-ax1.legend(lines, labels, loc='upper right', prop={'size': 7})
+ax1.legend(lines, labels, loc='upper right', prop={'size': 9})
 ax1.set_title("Top 15 de profesiones más frecuentes (de 115 en total)")
 df2 = df.groupby(['profesion'])[
     'prom_donacion_mes'].sum().sort_values(0, ascending=False)
 df2 = df2.head(15)
-df2.plot.bar(ax=ax2, figsize=(20, 10),
-             colors=color)
+df2.plot.bar(ax=ax2, figsize=(20, 10))
 ax2.set_xlabel('Profesion')
-ax2.set_ylabel('Promedio de donación mensual')
-colors = ['purple', 'purple', 'purple', 'purple', 'purple',
-          'purple', 'purple', 'purple', 'purple', 'purple',
-          'purple', 'purple', 'purple', 'purple', 'purple']
+colors = ['blue', 'blue', 'blue', 'blue', 'blue',
+          'blue', 'blue', 'blue', 'blue', 'blue',
+          'blue', 'blue', 'blue', 'blue', 'blue']
 lines = [Line2D([0], [0], color=c, linewidth=2)
          for c in colors]
 labels = [
@@ -550,7 +518,7 @@ labels = [
     'Enfermera Jefe', 'Psicóloga', 'Contadora Publica',
     'Contadora',  'Comunicadora social', 'Ingeniera de sistemas',
     'Odontologa', 'Fisioterapeuta', 'Comunicadora Social']
-ax2.legend(lines, labels, loc='upper right', prop={'size': 7})
+ax2.legend(lines, labels, loc='upper right', prop={'size': 9})
 ax2.set_title("Top 15 de profesiones que más donan (de 115 en total)")
 for ax in fig.axes:
     plt.sca(ax)
@@ -563,13 +531,12 @@ fig, (ax1, ax2) = plt.subplots(1, 2)
 fig.suptitle('Top 15 de donantes cooperadoras que más...')
 df2 = df.sort_values('donacion_total', ascending=False)
 df2 = df2[['donacion_total', 'cod_ter']].set_index('cod_ter').head(15)
-df2.plot.bar(ax=ax1, figsize=(20, 10),
-             colors=color)
+df2.plot.bar(ax=ax1, figsize=(20, 10))
 ax1.set_xlabel('Número de documento del donante')
 ax1.set_ylabel('Monto de donación en miles de millones de pesos')
-colors = ['purple', 'purple', 'purple', 'purple', 'purple',
-          'purple', 'purple', 'purple', 'purple', 'purple',
-          'purple', 'purple', 'purple', 'purple', 'purple']
+colors = ['blue', 'blue', 'blue', 'blue', 'blue',
+          'blue', 'blue', 'blue', 'blue', 'blue',
+          'blue', 'blue', 'blue', 'blue', 'blue']
 lines = [Line2D([0], [0], color=c, linewidth=2)
          for c in colors]
 labels = ['Olga Orjuela', 'Claudia Prieto',
@@ -580,17 +547,16 @@ labels = ['Olga Orjuela', 'Claudia Prieto',
           'Amalia Riveros', 'Teresita Cardona',
           'Gloria Helena Carbonell', 'Luisa Yaneth Pallares',
           'Natalia Silva']
-ax1.legend(lines, labels, ncol=1, loc='upper right', prop={'size': 7})
+ax1.legend(lines, labels, ncol=1, loc='upper right', prop={'size': 9})
 ax1.set_title("Top 15 acumulado de donación $ 2018-2020")
 df3 = df.sort_values('recurrencia_prom', ascending=False)
 df3 = df3[['recurrencia_prom', 'cod_ter']].set_index('cod_ter').head(15)
-df3.plot.bar(ax=ax2, figsize=(20, 10),
-             colors=color)
+df3.plot.bar(ax=ax2, figsize=(20, 10))
 ax2.set_xlabel('Número de documento del donante')
 ax2.set_ylabel('Recurrencia de su donación promedio')
-colors = ['purple', 'purple', 'purple', 'purple', 'purple',
-          'purple', 'purple', 'purple', 'purple', 'purple',
-          'purple', 'purple', 'purple', 'purple', 'purple']
+colors = ['blue', 'blue', 'blue', 'blue', 'blue',
+          'blue', 'blue', 'blue', 'blue', 'blue',
+          'blue', 'blue', 'blue', 'blue', 'blue']
 lines = [Line2D([0], [0], color=c, linewidth=2)
          for c in colors]
 labels = [
@@ -602,7 +568,7 @@ labels = [
     'Angela Claudia Burbano', 'Olga Cecilia García',
     'Zoraida Herrera', 'Gloria Carbonell',
     'Maria Teresa Gonzalez']
-ax2.legend(lines, labels, ncol=1, loc='upper right', prop={'size': 7})
+ax2.legend(lines, labels, ncol=1, loc='upper right', prop={'size': 9})
 ax2.set_title("Top 15 acumulado de donantes más recurrentes en promedio")
 for ax in fig.axes:
     plt.sca(ax)

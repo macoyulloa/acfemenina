@@ -70,13 +70,14 @@ d_sup.rename(columns={'num_doc': 'cod_ter'}, inplace=True)
 
 # borrar todos los registros que no sean empresas con NIT y preparar las
 # empresas que están dentor de la lista de codigos de terceros de contabili
-index_names = d_terceros[d_terceros['tdoc'] != 31].index
-d_terceros.drop(index_names, inplace=True)
-d_terceros.rename(columns={'nit_ter': 'cod_ter'}, inplace=True)
-d_terceros.drop(columns={'mae_ter', 'apl1', 'apl2',
-                         'dig_ver', 'nom1', 'nom2', 'tdoc'}, inplace=True)
-print(d_terceros.columns.values)
-print(d_terceros)
+# index_names = d_terceros[d_terceros['tdoc'] != 31].index
+# d_terceros.drop(index_names, inplace=True)
+# d_terceros.rename(columns={'nit_ter': 'cod_ter'}, inplace=True)
+# d_terceros.drop(columns={'mae_ter', 'apl1', 'apl2',
+#                         'dig_ver', 'nom1', 'nom2', 'tdoc'}, inplace=True)
+# print(d_terceros.columns.values)
+# print(d_terceros)
+
 
 # guardando los archivos de bases de datos limpios en el .csv
 d_empresas.to_csv('./donantes_limpios/donantes_empresas.csv',
@@ -85,5 +86,5 @@ d_coop.to_csv('./donantes_limpios/donantes_cooperadoras.csv',
               index=False, encoding='utf-8')
 d_sup.to_csv('./donantes_limpios/donantes_supernumerarias.csv',
              index=False, encoding='utf-8')
-d_terceros.to_csv('./donantes_limpios/donantes_terceros_empresas.csv',
+d_empresas.to_csv('./donantes_limpios/donantes_terceros_empresas.csv',
                   index=False, encoding='utf-8')
