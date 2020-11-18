@@ -26,7 +26,7 @@ d_2020 = pd.read_csv(
 print(df.columns.values)
 
 # tendencia de donación año a año en monto de donación
-fig, (ax1, ax2) = plt.subplots(1, 2)
+fig, (ax1) = plt.subplots(1)
 fig.suptitle(
     'Insights: información caracteristica vs transaccional del donante particulares externas')
 df[['total_2018', 'total_2019', 'total_2020']
@@ -34,11 +34,6 @@ df[['total_2018', 'total_2019', 'total_2020']
 ax1.set_xlabel('Año')
 ax1.set_ylabel('Monto donado en miles de millones de pesos')
 ax1.set_title("Tendencia del monto de donación acumulado año a año")
-# df.groupby(['centro'])[['total_2018', 'total_2019',
-#                        'total_2020']].sum().plot(ax=ax2)
-ax2.set_xlabel('Centro cultural')
-ax2.set_ylabel('Monto donado en miles de millones de pesos')
-ax2.set_title('Tendencia año a año del monto donado por centro')
 plt.xticks(rotation=30)
 fig.savefig('./images/particulares_externas/part_ext_descriptivo_1.png')
 # plt.show()
@@ -306,7 +301,7 @@ fig.savefig('./images/particulares_externas/part_ext_descriptivo_5.png')
 ##### gráficas usando la base de datos master ############
 ##########################################################
 
-# cargo los archivos de bases de datos de cooperadoras
+# cargo los archivos de bases de datos
 df = pd.read_csv(
     '../bd_finales/part_ext_transaccional_caracterizacion.csv')
 # coop.set_index('cod_ter', inplace=True)
