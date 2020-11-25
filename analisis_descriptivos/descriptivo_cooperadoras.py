@@ -34,7 +34,7 @@ fig.suptitle(
 df[['total_2018', 'total_2019', 'total_2020']
    ].sum().plot(ax=ax1, figsize=(20, 10))
 ax1.set_xlabel('Año')
-ax1.set_ylabel('Monto donado en miles de millones de pesos')
+ax1.set_ylabel('Monto donado en 0.000.000 COP')
 ax1.set_title("Tendencia del monto de donación acumulado año a año")
 df.groupby(['centro'])[['total_2018', 'total_2019',
                         'total_2020']].sum().plot(ax=ax2)
@@ -58,9 +58,9 @@ df1.reset_index(inplace=True)
 df1.drop(columns=['categ_suc_2018'], inplace=True)
 df1.set_index('sucursal', inplace=True)
 df1.plot.bar(ax=ax1, figsize=(20, 10), colors=color, legend=False)
-ax1.set_xlabel('Sucursal')
-ax1.set_ylabel('Número de Donaciones')
-ax1.set_title("Sucursal de Donaciones 2018")
+ax1.set_xlabel('Destino donación')
+ax1.set_ylabel('Cantidad de donantes')
+ax1.set_title("Para quién o qué van las donaciones 2018")
 ax2 = fig.add_subplot(gs[0, 1])
 df1 = df.groupby(['categ_suc_2019'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False)
@@ -69,9 +69,9 @@ df1.reset_index(inplace=True)
 df1.drop(columns=['categ_suc_2019'], inplace=True)
 df1.set_index('sucursal', inplace=True)
 df1.plot.bar(ax=ax2, figsize=(20, 10), colors=color, legend=False)
-ax2.set_xlabel('Sucursal')
-ax2.set_ylabel('Número de Donaciones')
-ax2.set_title("Sucursal de Donaciones 2019")
+ax2.set_xlabel('Destino donación')
+ax2.set_ylabel('Cantidad de donantes')
+ax2.set_title("Para quién o qué van las donaciones 2019")
 ax3 = fig.add_subplot(gs[1, :])
 df1 = df.groupby(['categ_suc_2020'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False)
@@ -80,9 +80,9 @@ df1.reset_index(inplace=True)
 df1.drop(columns=['categ_suc_2020'], inplace=True)
 df1.set_index('sucursal', inplace=True)
 df1.plot.bar(ax=ax3, figsize=(20, 10), colors=color, legend=False)
-ax3.set_xlabel('Sucursal')
-ax3.set_ylabel('Número de Donaciones')
-ax3.set_title("Sucursal de Donaciones 2020")
+ax3.set_xlabel('Destino donación')
+ax3.set_ylabel('Cantidad de donantes')
+ax3.set_title("Para quién o qué van las donaciones 2020")
 for ax in fig.axes:
     plt.sca(ax)
     plt.xticks(rotation=0)
@@ -104,8 +104,8 @@ df1.drop(columns=['categ_suc_2018', 'cod_suc_2018'], inplace=True)
 df1.set_index('nom_suc', inplace=True)
 df1.plot.bar(ax=ax1, legend=False)
 ax1.set_xlabel('Centro Cultural')
-ax1.set_ylabel('Número de DOnaciones')
-ax1.set_title("Sucursal: Centro Cultural 2018")
+ax1.set_ylabel('Cantidad de donantes')
+ax1.set_title("Destino Donación: Centro Cultural 2018")
 ax2 = fig.add_subplot(gs[0, 1])
 df1 = df.groupby(['categ_suc_2019', 'cod_suc_2019'])[
     'cod_ter'].count().reset_index()
@@ -116,8 +116,8 @@ df1.drop(columns=['categ_suc_2019', 'cod_suc_2019'], inplace=True)
 df1.set_index('nom_suc', inplace=True)
 df1.plot.bar(ax=ax2, figsize=(20, 10), legend=False)
 ax2.set_xlabel('Centro Cultural')
-ax2.set_ylabel('Número de Donaciones')
-ax2.set_title("Sucursal: Centro Cultural 2019")
+ax2.set_ylabel('Cantidad de donantes')
+ax2.set_title("Destino Donación: Centro Cultural 2019")
 ax3 = fig.add_subplot(gs[1, :])
 df1 = df.groupby(['categ_suc_2020', 'cod_suc_2020'])[
     'cod_ter'].count().reset_index()
@@ -128,8 +128,8 @@ df1.drop(columns=['categ_suc_2020', 'cod_suc_2020'], inplace=True)
 df1.set_index('nom_suc', inplace=True)
 df1.plot.bar(ax=ax3, figsize=(20, 10), legend=False)
 ax3.set_xlabel('Centro Cultural')
-ax3.set_ylabel('Número de Donaciones')
-ax3.set_title("Sucursal: Centro Cultural 2020")
+ax3.set_ylabel('Cantidad de donantes')
+ax3.set_title("Destino Donación: Centro Cultural 2020")
 for ax in fig.axes:
     plt.sca(ax)
     plt.xticks(rotation=17)
@@ -150,9 +150,9 @@ df1['cco'] = ['D cooperadoras', 'No Aplica',
 df1.drop(columns=['categ_cco_2018'], inplace=True)
 df1.set_index('cco', inplace=True)
 df1.plot.bar(ax=ax1, legend=False, figsize=(20, 10))
-ax1.set_xlabel('Centro de Costo')
-ax1.set_ylabel('Número de Donaciones')
-ax1.set_title("Centros de Costos de cada Donación 2018")
+ax1.set_xlabel('Origen de la Donación')
+ax1.set_ylabel('Cantidad de donantes')
+ax1.set_title("Origen de cada Donación 2018")
 ax2 = fig.add_subplot(gs[0, 1])  # row 0, col 1
 df1 = df.groupby(['categ_cco_2019'])['cod_ter'].count().to_frame(
 ).sort_values('cod_ter', ascending=False).reset_index()
@@ -161,9 +161,9 @@ df1['cco'] = ['D cooperadoras', 'No Aplica', 'Eventos/Act/Prod', 'D Particulares
 df1.drop(columns=['categ_cco_2019'], inplace=True)
 df1.set_index('cco', inplace=True)
 df1.plot.bar(ax=ax2, figsize=(20, 10), legend=False)
-ax2.set_xlabel('Centro de Costo')
-ax2.set_ylabel('Número de Donaciones')
-ax2.set_title("Centros de Costos de cada Donación 2019")
+ax2.set_xlabel('Origen de la Donación')
+ax2.set_ylabel('Cantidad de donantes')
+ax2.set_title("Origen de cada Donación 2019")
 ax3 = fig.add_subplot(gs[1, :])  # row 1, span all columns
 df1 = df.groupby(['categ_cco_2020'])['cod_ter'].count().to_frame(
 ).sort_values('cod_ter', ascending=False).reset_index()
@@ -172,9 +172,9 @@ df1['cco'] = ['D cooperadoras', 'No Aplica', 'D Particulares', 'Eventos/Act/Prod
 df1.drop(columns=['categ_cco_2020'], inplace=True)
 df1.set_index('cco', inplace=True)
 df1.plot.bar(ax=ax3, figsize=(20, 10), legend=False)
-ax3.set_xlabel('Centro de Costo')
-ax3.set_ylabel('Número de Donaciones')
-ax3.set_title("Centros de Costos de cada Donación 2020")
+ax3.set_xlabel('Origen de la Donación')
+ax3.set_ylabel('Cantidad de donantes')
+ax3.set_title("Origen de cada Donación 2020")
 for ax in fig.axes:
     plt.sca(ax)
     plt.xticks(rotation=10)
@@ -195,8 +195,8 @@ df1.drop(columns=['categ_cco_2018', 'cod_cco_2018'], inplace=True)
 df1.set_index('nom_cco', inplace=True)
 df1.plot.bar(ax=ax1, legend=False)
 ax1.set_xlabel('')
-ax1.set_ylabel('Número de Donaciones')
-ax1.set_title("Centro de costos: Cooperadora 2018")
+ax1.set_ylabel('Cantidad de donantes')
+ax1.set_title("Origen donación: Cooperadora 2018")
 ax2 = fig.add_subplot(gs[0, 1])
 df1 = df.groupby(['categ_cco_2019', 'cod_cco_2019'])[
     'cod_ter'].count().reset_index()
@@ -207,8 +207,8 @@ df1.drop(columns=['categ_cco_2019', 'cod_cco_2019'], inplace=True)
 df1.set_index('nom_cco', inplace=True)
 df1.plot.bar(ax=ax2, legend=False)
 ax2.set_xlabel('')
-ax2.set_ylabel('Número de Donaciones')
-ax2.set_title("Centro de costos: Cooperadora 2019")
+ax2.set_ylabel('Cantidad de donantes')
+ax2.set_title("Origen donación: Cooperadora 2019")
 ax3 = fig.add_subplot(gs[1, :])
 df1 = df.groupby(['categ_cco_2020', 'cod_cco_2020'])[
     'cod_ter'].count().reset_index()
@@ -219,8 +219,8 @@ df1.drop(columns=['categ_cco_2020', 'cod_cco_2020'], inplace=True)
 df1.set_index('nom_cco', inplace=True)
 df1.plot.bar(ax=ax3, figsize=(20, 10), legend=False)
 ax3.set_xlabel('Tipo de Donante Cooperadora')
-ax3.set_ylabel('Número de Donaciones')
-ax3.set_title("Centro de costos: Cooperadora 2020")
+ax3.set_ylabel('Cantidad de donantes')
+ax3.set_title("Origen donación: Cooperadora 2020")
 for ax in fig.axes:
     plt.sca(ax)
     plt.xticks(rotation=0)
@@ -230,10 +230,10 @@ fig.savefig('./images/cooperadoras/cooperadoras_descriptivo_4_1.png')
 # cuantos donaron mas de 1 vez
 # cuantas cooperadoras donaron más de a una causa
 d_2018 = d_2018.merge(df, on='cod_ter', how='inner')
-d_2018 = d_2018.groupby(['cod_ter', 'categoria_cco'])['categoria_cco'].count(
+d_2018 = d_2018.groupby(['cod_ter', 'categoria_suc'])['categoria_suc'].count(
 ).sort_values(ascending=False).to_frame()
 n_donantes_2018 = len(d_2018)
-d_2018.rename(columns={'categoria_cco': 'n_donacion'}, inplace=True)
+d_2018.rename(columns={'categoria_suc': 'n_donacion'}, inplace=True)
 d_2018.reset_index(inplace=True)
 d_2018 = d_2018.groupby(['cod_ter'])['cod_ter'].count(
 ).sort_values(ascending=False).to_frame()
@@ -243,10 +243,10 @@ d_2018.drop(index_names, inplace=True)
 n_donantes_causas_2018 = len(d_2018)
 # cuantas cooperadoras donaron más de a una causa
 d_2019 = d_2019.merge(df, on='cod_ter', how='inner')
-d_2019 = d_2019.groupby(['cod_ter', 'categoria_cco'])['categoria_cco'].count(
+d_2019 = d_2019.groupby(['cod_ter', 'categoria_suc'])['categoria_suc'].count(
 ).sort_values(ascending=False).to_frame()
 n_donantes_2019 = len(d_2019)
-d_2019.rename(columns={'categoria_cco': 'n_donacion'}, inplace=True)
+d_2019.rename(columns={'categoria_suc': 'n_donacion'}, inplace=True)
 d_2019.reset_index(inplace=True)
 d_2019 = d_2019.groupby(['cod_ter'])['cod_ter'].count(
 ).sort_values(ascending=False).to_frame()
@@ -256,10 +256,10 @@ d_2019.drop(index_names, inplace=True)
 n_donantes_causas_2019 = len(d_2019)
 # cuantas cooperadoras donaron más de a una causa
 d_2020 = d_2020.merge(df, on='cod_ter', how='inner')
-d_2020 = d_2020.groupby(['cod_ter', 'categoria_cco'])['categoria_cco'].count(
+d_2020 = d_2020.groupby(['cod_ter', 'categoria_suc'])['categoria_suc'].count(
 ).sort_values(ascending=False).to_frame()
 n_donantes_2020 = len(d_2020)
-d_2020.rename(columns={'categoria_cco': 'n_donacion'}, inplace=True)
+d_2020.rename(columns={'categoria_suc': 'n_donacion'}, inplace=True)
 d_2020.reset_index(inplace=True)
 d_2020 = d_2020.groupby(['cod_ter'])['cod_ter'].count(
 ).sort_values(ascending=False).to_frame()
@@ -269,11 +269,11 @@ d_2020.drop(index_names, inplace=True)
 n_donantes_causas_2020 = len(d_2020)
 # dataframe y descripivo
 data = {'total_donantes':  [n_donantes_2018, n_donantes_2019, n_donantes_2020],
-        'donantes_a_muchos_centros_costo': [n_donantes_causas_2018, n_donantes_causas_2019,
+        'donaciones a más de un destino': [n_donantes_causas_2018, n_donantes_causas_2019,
                                             n_donantes_causas_2020]
         }
 df_1 = pd.DataFrame(data, index=['2018', '2019', '2020'],
-                    columns=['total_donantes', 'donantes_a_muchos_centros_costo'])
+                    columns=['total_donantes', 'donaciones a más de un destino'])
 # descriptivo, cuantos donaron a muchas causas año a año
 fig, ax = plt.subplots(figsize=(20, 10))
 fig.suptitle(
@@ -281,7 +281,7 @@ fig.suptitle(
 df_1.plot.bar(ax=ax)
 ax.set_xlabel('Año')
 ax.set_ylabel('Cantidad de donantes')
-ax.set_title("Donantes cooperadoras que donaron a más de una causa")
+ax.set_title("Donantes con más de un destino")
 ax.legend(title="Donantes",
           ncol=1, loc='upper left', prop={'size': 10})
 plt.xticks(rotation=0)
@@ -297,23 +297,23 @@ ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
 df.groupby(['profesion', 'categ_cco_2018'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).head(10).plot.bar(ax=ax1, figsize=(20, 10),
                                                                        legend=False)
-ax1.set_xlabel('Profesion / Centro de Costo')
-ax1.set_ylabel('Número de Donaciones')
-ax1.set_title("Profesion VS Centro de costos 2018")
+ax1.set_xlabel('Profesion / Origen donación')
+ax1.set_ylabel('Cantidad de donantes')
+ax1.set_title("Profesion VS Origen donación 2018")
 ax2 = fig.add_subplot(gs[0, 1])  # row 0, col 1
 df.groupby(['profesion', 'categ_cco_2019'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).head(10).plot.bar(ax=ax2, figsize=(20, 10),
                                                                        legend=False)
-ax2.set_xlabel('Profesion / Centro de Costo')
-ax2.set_ylabel('Número de Donaciones')
-ax2.set_title("Profesion VS Centro de costos 2019")
+ax2.set_xlabel('Profesion / Origen donación')
+ax2.set_ylabel('Cantidad de donantes')
+ax2.set_title("Profesion VS Origen donación 2019")
 ax3 = fig.add_subplot(gs[1, :])  # row 1, span all columns
 df.groupby(['profesion', 'categ_cco_2020'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).head(10).plot.bar(ax=ax3, figsize=(20, 10),
                                                                        legend=False)
-ax3.set_xlabel('Profesion / Centro de Costo')
+ax3.set_xlabel('Profesion / Origen donación')
 ax3.set_ylabel('Número de Donaciones')
-ax3.set_title("Profesion VS Centro de costos 2020")
+ax3.set_title("Profesion VS Origen donación 2020")
 for ax in fig.axes:
     plt.sca(ax)
     plt.xticks(rotation=210)
@@ -357,7 +357,7 @@ ax1.set_title("Rango de edad del donante cooperadoras")
 df.groupby(['rango_edades'])['donacion_total'].sum().plot.bar(ax=ax2, figsize=(20, 10),
                                                               colors=color)
 ax2.set_xlabel('')
-ax2.set_ylabel('Monto acum (miles de millones $)')
+ax2.set_ylabel('Monto donado en 0.000.000 COP')
 ax2.set_title("Rango de edad VS total de donación acumulada")
 df.groupby(['rango_edades'])['prom_donacion_mes'].sum().plot.bar(ax=ax3, figsize=(20, 10),
                                                                  colors=color)
@@ -367,7 +367,7 @@ ax3.set_title("Rango de edad VS promedio donación mensual")
 df.groupby(['ciudad']).size().plot.bar(ax=ax4, colors=color,
                                        figsize=(20, 10))
 ax4.set_xlabel('Ciudad')
-ax4.set_ylabel('Número de donantes (personas)')
+ax4.set_ylabel('Número de donantes')
 ax4.set_title("¿De qué ciudad son?")
 for ax in fig.axes:
     plt.sca(ax)
@@ -383,21 +383,21 @@ fig.suptitle(
 df.groupby(['misma_sucursal']).size().plot.pie(ax=ax1,
                                                autopct='%1.1f%%',
                                                counterclock=False)
-ax1.set_title("Misma sucrusal durante los tres años?")
+ax1.set_title("Fidelización del donante con el destino")
 df.groupby(['misma_sucursal'])[
     'donacion_total'].sum().plot.bar(ax=ax2)
 ax2.set_xlabel('')
-ax2.set_ylabel('Monto acum (miles millones de cop)')
-ax2.set_title("Sucursal vs monto total donado")
+ax2.set_ylabel('Monto donado en 0.000.000 COP')
+ax2.set_title("Monto total donado recibido por donantes fidelizados y no")
 df.groupby(['misma_causa']).size().plot.pie(ax=ax3, figsize=(20, 10),
                                             autopct='%1.1f%%',
                                             counterclock=False)
-ax3.set_title("Donó a un mismo centro de costos durante los 3 años")
+ax3.set_title("¿La donación tuve el mismo origen durante los 3 años?")
 df.groupby(['misma_causa'])[
     'donacion_total'].sum().plot.bar(ax=ax4)
-ax4.set_xlabel('Si donaron o no al mismo centro de costos')
-ax4.set_ylabel('Monto acum (miles millones de cop)')
-ax4.set_title("Aderencia con el centro de costos vs monto total donado")
+ax4.set_xlabel('¿mismo origen del dinero durante los 3 años?')
+ax4.set_ylabel('Monto donado en 0.000.000 COP')
+ax4.set_title("Monto total donado recibido de un mismo destino")
 for ax in fig.axes:
     plt.sca(ax)
     plt.xticks(rotation=0)
@@ -411,7 +411,7 @@ fig.suptitle(
 df.groupby(['estado_civil']).size().plot.bar(ax=ax1, colors=color,
                                              figsize=(20, 10))
 ax1.set_xlabel('Estado Civil')
-ax1.set_ylabel('Número de donantes (personas)')
+ax1.set_ylabel('Número de donantes')
 ax1.set_title("Estado civil")
 df.groupby(['estado_civil'])[
     'prom_donacion_mes'].sum().plot.bar(ax=ax2, colors=color)
@@ -431,7 +431,7 @@ fig.suptitle(
 df.groupby(['centro', 'rango_edades'])[
     'rango_edades'].size().plot.bar(ax=ax, colors=color)
 ax.set_xlabel('Centro Cultural y Rango de Edad')
-ax.set_ylabel('Cantidad de donantes (personas)')
+ax.set_ylabel('Cantidad de donantes')
 ax.set_title("Rango de edad del donante por centro")
 plt.xticks(rotation=75)
 fig.savefig('./images/cooperadoras/cooperadoras_descriptivo_9.png')
@@ -444,12 +444,12 @@ fig.suptitle(
 df.groupby(['centro'])['donacion_total'].sum().plot.bar(ax=ax1, figsize=(20, 10),
                                                         colors=color)
 ax1.set_xlabel('Centro Cultural')
-ax1.set_ylabel('Monto acum (miles de millones $)')
+ax1.set_ylabel('Monto donado en 0.000.000 COP')
 ax1.set_title("Monto en pesos acumulado por centro 2018-2020")
 df.groupby(['centro']).size().plot.bar(ax=ax2, figsize=(20, 10),
                                        colors=color)
 ax2.set_xlabel('Centro Cultural')
-ax2.set_ylabel('Número de donantes (personas)')
+ax2.set_ylabel('Número de donantes')
 ax2.set_title("Número de donantes por centro")
 for ax in fig.axes:
     plt.sca(ax)
@@ -533,7 +533,7 @@ df2 = df.sort_values('donacion_total', ascending=False)
 df2 = df2[['donacion_total', 'cod_ter']].set_index('cod_ter').head(15)
 df2.plot.bar(ax=ax1, figsize=(20, 10))
 ax1.set_xlabel('Número de documento del donante')
-ax1.set_ylabel('Monto de donación en miles de millones de pesos')
+ax1.set_ylabel('Monto donado en 0.000.000 COP')
 colors = ['blue', 'blue', 'blue', 'blue', 'blue',
           'blue', 'blue', 'blue', 'blue', 'blue',
           'blue', 'blue', 'blue', 'blue', 'blue']
@@ -592,7 +592,7 @@ df.groupby(['rango_n_transac'])['donacion_total'].sum().plot.bar(ax=ax2,
                                                                  figsize=(
                                                                      20, 10),
                                                                  colors=color)
-ax2.set_ylabel('Monto acumulado (en miles de millones)')
+ax2.set_ylabel('Monto donado en 0.000.000 COP')
 ax2.set_xlabel('Número de transacciones promedio al año')
 ax2.set_title("Monto total acumulado por transacciones")
 for ax in fig.axes:
