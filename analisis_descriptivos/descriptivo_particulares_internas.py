@@ -23,7 +23,28 @@ d_2019 = pd.read_csv(
     '../data/contabilidad_limpios/Auxiliar_Donantes_2019.csv')
 d_2020 = pd.read_csv(
     '../data/contabilidad_limpios/Auxiliar_Donantes_2020.csv')
-print(df.columns.values)
+# print(df.columns.values)
+
+df['profesion'] = df['profesion'].replace('Hogar', 'Ama de casa')
+df['profesion'] = df['profesion'].replace(
+    'Administradora de empresas', 'Administradora')
+df['profesion'] = df['profesion'].replace('Contadora Publica', 'Contadora')
+df['profesion'] = df['profesion'].replace(
+    'Administradora en bienes raíces', 'Administradora')
+df['profesion'] = df['profesion'].replace(
+    'Administradora de instituciones de servicio', 'Administradora')
+df['profesion'] = df['profesion'].replace(
+    'Educadora', 'Profesora')
+df['profesion'] = df['profesion'].replace(
+    'Docente', 'Profesora')
+df['profesion'] = df['profesion'].replace(
+    'Medico', 'Médico')
+df['profesion'] = df['profesion'].replace(
+    'Medica', 'Médico')
+df['profesion'] = df['profesion'].replace(
+    'Psicologa', 'Psicóloga')
+df['profesion'] = df['profesion'].replace(
+    'Comunicadora Social', 'Comunicadora social')
 
 # tendencia de donación año a año en monto de donación
 fig, (ax1, ax2) = plt.subplots(1, 2)
@@ -121,6 +142,53 @@ ax2.set_title("Destino Donación: Centro Cultural 2019")
 ax3 = fig.add_subplot(gs[1, :])
 df1 = df.groupby(['categ_suc_2020', 'cod_suc_2020'])[
     'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_suc_2020'] == 1.0]
+# print(df1)
+df1['nom_suc'] = ['Cedro', 'Nogal', 'Portones', 'Arboleda',
+                  'Naval']
+df1.drop(columns=['categ_suc_2020', 'cod_suc_2020'], inplace=True)
+df1.set_index('nom_suc', inplace=True)
+df1.plot.bar(ax=ax3, figsize=(20, 10), legend=False)
+ax3.set_xlabel('Labor Social')
+ax3.set_ylabel('Cantidad de donantes')
+ax3.set_title("Destino Donación: Labor Social 2020")
+for ax in fig.axes:
+    plt.sca(ax)
+    plt.xticks(rotation=15)
+fig.savefig('./images/particulares_internas/part_int_descriptivo_3_1.png')
+# plt.show()
+
+gs = gridspec.GridSpec(2, 2)
+fig = plt.figure()
+fig.suptitle(
+    'Insights: información caracteristica vs transaccional de donante particulares internas')
+ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
+df1 = df.groupby(['categ_suc_2018', 'cod_suc_2018'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_suc_2018'] == 3.0]
+# print(df1)
+df1['nom_suc'] = ['ICSEF', 'Casanueva (JUV)', 'Fondo Sacerdotes']
+df1.drop(columns=['categ_suc_2018', 'cod_suc_2018'], inplace=True)
+df1.set_index('nom_suc', inplace=True)
+df1.plot.bar(ax=ax1, legend=False)
+ax1.set_xlabel('Destino Donación:')
+ax1.set_ylabel('Cantidad de donantes')
+ax1.set_title("Destino Donación: Centro Cultural 2018")
+ax2 = fig.add_subplot(gs[0, 1])
+df1 = df.groupby(['categ_suc_2019', 'cod_suc_2019'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_suc_2019'] == 3.0]
+# print(df1)
+df1['nom_suc'] = ['ICSEF', 'Casanueva (JUV)', 'Fondo Sacerdotes']
+df1.drop(columns=['categ_suc_2019', 'cod_suc_2019'], inplace=True)
+df1.set_index('nom_suc', inplace=True)
+df1.plot.bar(ax=ax2, figsize=(20, 10), legend=False)
+ax2.set_xlabel('Destino Donación:')
+ax2.set_ylabel('Cantidad de donantes')
+ax2.set_title("Destino Donación: Centro Cultural 2019")
+ax3 = fig.add_subplot(gs[1, :])
+df1 = df.groupby(['categ_suc_2020', 'cod_suc_2020'])[
+    'cod_ter'].count().reset_index()
 df1 = df1.loc[df1['categ_suc_2020'] == 3.0]
 # print(df1)
 df1['nom_suc'] = ['ICSEF', 'Casanueva (JUV)', 'Fondo Sacerdotes', 'APoyo Venezuela',
@@ -134,7 +202,7 @@ ax3.set_title("Destino Donación: Labor Social 2020")
 for ax in fig.axes:
     plt.sca(ax)
     plt.xticks(rotation=15)
-fig.savefig('./images/particulares_internas/part_int_descriptivo_3_1.png')
+fig.savefig('./images/particulares_internas/part_int_descriptivo_3_2.png')
 # plt.show()
 
 # centro de costos destino de cada donacion
@@ -181,7 +249,55 @@ for ax in fig.axes:
 fig.savefig('./images/particulares_internas/part_int_descriptivo_4.png')
 # plt.show()
 
-# Top centro de costo: destino de cada donacion año a año
+# destino de cada donacion año a año
+gs = gridspec.GridSpec(2, 2)
+fig = plt.figure()
+fig.suptitle(
+    'Insights: información caracteristica vs transaccional de donante particulares internas')
+ax1 = fig.add_subplot(gs[0, 0])
+df1 = df.groupby(['categ_cco_2019', 'cod_cco_2019'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_cco_2019'] == 4.0]
+# print(df1)
+df1['nom_cco'] = ['C Mantenimiento GP', 'C Mantenimiento GP']
+df1.drop(columns=['categ_cco_2019', 'cod_cco_2019'], inplace=True)
+df1.set_index('nom_cco', inplace=True)
+df1.plot.bar(ax=ax2, legend=False)
+ax1.set_xlabel('')
+ax1.set_ylabel('Cantidad de donantes')
+ax1.set_title("Origen donación: Mantenimiento de Centros 2019")
+ax2 = fig.add_subplot(gs[0, 1])
+df1 = df.groupby(['categ_cco_2019', 'cod_cco_2019'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_cco_2019'] == 4.0]
+# print(df1)
+df1['nom_cco'] = ['C Mantenimiento GP', 'C Mantenimiento GP']
+df1.drop(columns=['categ_cco_2019', 'cod_cco_2019'], inplace=True)
+df1.set_index('nom_cco', inplace=True)
+df1.plot.bar(ax=ax2, legend=False)
+ax2.set_xlabel('')
+ax2.set_ylabel('Cantidad de donantes')
+ax2.set_title("Origen donación: Mantenimiento de Centros 2019")
+ax3 = fig.add_subplot(gs[1, :])
+df1 = df.groupby(['categ_cco_2020', 'cod_cco_2020'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_cco_2020'] == 4.0]
+# print(df1)
+df1['nom_cco'] = ['C Mantenimiento GP']
+df1.drop(columns=['categ_cco_2020', 'cod_cco_2020'], inplace=True)
+df1.set_index('nom_cco', inplace=True)
+df1.plot.bar(ax=ax3, figsize=(20, 10), legend=False)
+ax3.set_xlabel('Mantenimiento de Centros')
+ax3.set_ylabel('Cantidad de donantes')
+ax3.set_title("Origen donación: Mantenimiento de Centros 2020")
+for ax in fig.axes:
+    plt.sca(ax)
+    plt.xticks(rotation=15)
+plt.xticks(rotation=0)
+fig.savefig('./images/particulares_internas/part_int_descriptivo_4_1.png')
+# plt.show()
+
+# destino de cada donacion año a año
 gs = gridspec.GridSpec(2, 2)
 fig = plt.figure()
 fig.suptitle(
@@ -217,8 +333,105 @@ ax2.set_title("Origen donación: Eventos, Actividades y Productos 2019")
 ax3 = fig.add_subplot(gs[1, :])
 df1 = df.groupby(['categ_cco_2020', 'cod_cco_2020'])[
     'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_cco_2020'] == 6.0]
+# print(df1)
+df1['nom_cco'] = ['Bono Donacion', 'Curso Historia Arte',
+                  'F libros-nav.']
+df1.drop(columns=['categ_cco_2020', 'cod_cco_2020'], inplace=True)
+df1.set_index('nom_cco', inplace=True)
+df1.plot.bar(ax=ax3, figsize=(20, 10), legend=False)
+ax3.set_xlabel('Tipo de Donante Particulares')
+ax3.set_ylabel('Cantidad de donantes')
+ax3.set_title("Origen donación: Particular 2020")
+for ax in fig.axes:
+    plt.sca(ax)
+    plt.xticks(rotation=15)
+plt.xticks(rotation=0)
+fig.savefig('./images/particulares_internas/part_int_descriptivo_4_2.png')
+# plt.show()
+
+# destino de cada donacion año a año
+gs = gridspec.GridSpec(2, 2)
+fig = plt.figure()
+fig.suptitle(
+    'Insights: información caracteristica vs transaccional de donante particulares internas')
+ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
+df1 = df.groupby(['categ_cco_2018', 'cod_cco_2018'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_cco_2018'] == 21.0]
+# print(df1)
+df1['nom_cco'] = ['Cooperadora', 'Donación cooperadoras casanueva']
+df1.drop(columns=['categ_cco_2018', 'cod_cco_2018'], inplace=True)
+df1.set_index('nom_cco', inplace=True)
+df1.plot.bar(ax=ax1, legend=False)
+ax1.set_xlabel('')
+ax1.set_ylabel('Cantidad de donantes')
+ax1.set_title("Origen donación: Cooperadora 2018")
+ax2 = fig.add_subplot(gs[0, 1])
+df1 = df.groupby(['categ_cco_2019', 'cod_cco_2019'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_cco_2019'] == 21.0]
+# print(df1)
+df1['nom_cco'] = ['F. Cooperadoras', 'P. Cooperadoras']
+df1.drop(columns=['categ_cco_2019', 'cod_cco_2019'], inplace=True)
+df1.set_index('nom_cco', inplace=True)
+df1.plot.bar(ax=ax2, legend=False)
+ax2.set_xlabel('')
+ax2.set_ylabel('Cantidad de donantes')
+ax2.set_title("Origen donación: Cooperadora 2019")
+ax3 = fig.add_subplot(gs[1, :])
+df1 = df.groupby(['categ_cco_2020', 'cod_cco_2020'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_cco_2020'] == 21.0]
+# print(df1)
+df1['nom_cco'] = ['F. Cooperadoras', 'P. Cooperadoras']
+df1.drop(columns=['categ_cco_2020', 'cod_cco_2020'], inplace=True)
+df1.set_index('nom_cco', inplace=True)
+df1.plot.bar(ax=ax3, figsize=(20, 10), legend=False)
+ax3.set_xlabel('Tipo de Donante Cooperadora')
+ax3.set_ylabel('Cantidad de donantes')
+ax3.set_title("Origen donación: Cooperadora 2020")
+for ax in fig.axes:
+    plt.sca(ax)
+    plt.xticks(rotation=15)
+plt.xticks(rotation=0)
+fig.savefig('./images/particulares_internas/part_int_descriptivo_4_3.png')
+# plt.show()
+
+# destino de cada donacion año a año
+gs = gridspec.GridSpec(2, 2)
+fig = plt.figure()
+fig.suptitle(
+    'Insights: información caracteristica vs transaccional de donante particulares internas')
+ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
+df1 = df.groupby(['categ_cco_2018', 'cod_cco_2018'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_cco_2018'] == 22.0]
+# print(df1)
+df1['nom_cco'] = ['particulares', 'Donaciones Juventus']
+df1.drop(columns=['categ_cco_2018', 'cod_cco_2018'], inplace=True)
+df1.set_index('nom_cco', inplace=True)
+df1.plot.bar(ax=ax1, legend=False)
+ax1.set_xlabel('')
+ax1.set_ylabel('Cantidad de donantes')
+ax1.set_title("Origen donación: Eventos, Actividades y Productos 2018")
+ax2 = fig.add_subplot(gs[0, 1])
+df1 = df.groupby(['categ_cco_2019', 'cod_cco_2019'])[
+    'cod_ter'].count().reset_index()
+df1 = df1.loc[df1['categ_cco_2019'] == 22.0]
+# print(df1)
+df1['nom_cco'] = ['Donaciones Juventus', 'F Particulares', 'P Particulares']
+df1.drop(columns=['categ_cco_2019', 'cod_cco_2019'], inplace=True)
+df1.set_index('nom_cco', inplace=True)
+df1.plot.bar(ax=ax2, legend=False)
+ax2.set_xlabel('')
+ax2.set_ylabel('Cantidad de donantes')
+ax2.set_title("Origen donación: Eventos, Actividades y Productos 2019")
+ax3 = fig.add_subplot(gs[1, :])
+df1 = df.groupby(['categ_cco_2020', 'cod_cco_2020'])[
+    'cod_ter'].count().reset_index()
 df1 = df1.loc[df1['categ_cco_2020'] == 22.0]
-print(df1)
+# print(df1)
 df1['nom_cco'] = ['Limmat Donaciones', 'Crowfunding Juventus', 'P. Particulares']
 df1.drop(columns=['categ_cco_2020', 'cod_cco_2020'], inplace=True)
 df1.set_index('nom_cco', inplace=True)
@@ -230,7 +443,7 @@ for ax in fig.axes:
     plt.sca(ax)
     plt.xticks(rotation=15)
 plt.xticks(rotation=0)
-fig.savefig('./images/particulares_internas/part_int_descriptivo_4_1.png')
+fig.savefig('./images/particulares_internas/part_int_descriptivo_4_4.png')
 # plt.show()
 
 # cuantos donaron mas de 1 vez
@@ -276,7 +489,7 @@ n_donantes_causas_2020 = len(d_2020)
 # dataframe y descripivo
 data = {'total_donantes':  [n_donantes_2018, n_donantes_2019, n_donantes_2020],
         'donaciones a más de un destino': [n_donantes_causas_2018, n_donantes_causas_2019,
-                                            n_donantes_causas_2020]
+                                           n_donantes_causas_2020]
         }
 df_1 = pd.DataFrame(data, index=['2018', '2019', '2020'],
                     columns=['total_donantes', 'donaciones a más de un destino'])
@@ -298,32 +511,161 @@ fig.savefig('./images/particulares_internas/part_int_descriptivo_5.png')
 gs = gridspec.GridSpec(2, 2)
 fig = plt.figure()
 fig.suptitle(
-    'Insights: información caracteristica vs transaccional del donante particulares internas')
+    'Insights: información caracteristica vs transaccional donante particulares internos')
 ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
-df.groupby(['profesion', 'categ_cco_2018'])['cod_ter'].count(
-).to_frame().sort_values('cod_ter', ascending=False).head(10).plot.bar(ax=ax1, figsize=(20, 10),
-                                                                       legend=False)
-ax1.set_xlabel('Profesion / Origen donación')
+df1 = df.groupby(['profesion', 'cod_suc_2018'])['cod_ter'].count(
+).to_frame().sort_values('cod_ter', ascending=False).reset_index()
+df1 = df1.loc[df1['profesion'] == 'Abogada']
+# print(df1)
+df1['nom_suc'] = ['NA', 'Torreon', 'Nogal', 'Cedro', 'Portones', 'ACF',
+                  'Narval', 'Mirabal']
+df1.drop(columns=['profesion', 'cod_suc_2018'], inplace=True)
+df1.set_index(['nom_suc'], inplace=True)
+df1.plot.bar(ax=ax1, figsize=(20, 10),
+             legend=False)
+ax1.set_xlabel('Destino donación')
 ax1.set_ylabel('Cantidad de donantes')
-ax1.set_title("Profesion VS Origen Donación 2018")
-ax2 = fig.add_subplot(gs[0, 1])  # row 0, col 1
-df.groupby(['profesion', 'categ_cco_2019'])['cod_ter'].count(
-).to_frame().sort_values('cod_ter', ascending=False).head(10).plot.bar(ax=ax2, figsize=(20, 10),
-                                                                       legend=False)
-ax2.set_xlabel('Profesion / Origen donación')
+ax1.set_title("Abogadas y su destino de donación 2018")
+ax2 = fig.add_subplot(gs[0, 1])  # row 0, col
+df1 = df.groupby(['profesion', 'cod_suc_2019'])['cod_ter'].count(
+).to_frame().sort_values('cod_ter', ascending=False).reset_index()
+df1 = df1.loc[df1['profesion'] == 'Abogada']
+# print(df1)
+df1['nom_suc'] = ['Torreon', 'NA', 'Nogal', 'Arboleda',
+                  'Cedro', 'Portones', 'ACF', 'Serrania',
+                  'Casanueva']
+df1.drop(columns=['profesion', 'cod_suc_2019'], inplace=True)
+df1.set_index(['nom_suc'], inplace=True)
+df1.plot.bar(ax=ax2, figsize=(20, 10),
+             legend=False)
+ax2.set_xlabel('Destino donación')
 ax2.set_ylabel('Cantidad de donantes')
-ax2.set_title("Profesion VS Origen donación 2019")
+ax2.set_title("Abogadas y su destino de donación 2019")
 ax3 = fig.add_subplot(gs[1, :])  # row 1, span all columns
-df.groupby(['profesion', 'categ_cco_2020'])['cod_ter'].count(
-).to_frame().sort_values('cod_ter', ascending=False).head(10).plot.bar(ax=ax3, figsize=(20, 10),
-                                                                       legend=False)
-ax3.set_xlabel('Profesion / Origen donación')
+df1 = df.groupby(['profesion', 'cod_suc_2020'])['cod_ter'].count(
+).to_frame().sort_values('cod_ter', ascending=False).reset_index()
+df1 = df1.loc[df1['profesion'] == 'Abogada']
+# print(df1)
+df1['nom_suc'] = ['Portones', 'NA', 'Nogal', 'Cedro', 'Arboleda', 'Torreon CE',
+                  'Protones', 'Mujeres Escasos Rec.']
+df1.drop(columns=['profesion', 'cod_suc_2020'], inplace=True)
+df1.set_index(['nom_suc'], inplace=True)
+df1.plot.bar(ax=ax3, figsize=(20, 10),
+             legend=False)
+ax3.set_xlabel('Destino donación')
 ax3.set_ylabel('Cantidad de donantes')
-ax3.set_title("Profesion VS Origen donación 2020")
+ax3.set_title("Abogadas y su destino de donación 2020")
 for ax in fig.axes:
     plt.sca(ax)
-    plt.xticks(rotation=210)
-fig.savefig('./images/particulares_internas/part_int_descriptivo_6.png')
+    plt.xticks(rotation=20)
+fig.savefig('./images/particulares_internas/part_int_descriptivo_12_1.png')
+# plt.show()
+
+# centro de costos destino de cada donacion por profesion
+gs = gridspec.GridSpec(2, 2)
+fig = plt.figure()
+fig.suptitle(
+    'Insights: información caracteristica vs transaccional donante particulares internos')
+ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
+df1 = df.groupby(['profesion', 'cod_suc_2018'])['cod_ter'].count(
+).to_frame().sort_values('cod_ter', ascending=False).reset_index()
+df1 = df1.loc[df1['profesion'] == 'Administradora']
+# print(df1)
+df1['nom_suc'] = ['NA', 'Torreon', 'Cedro', 'Torreon C.E.', 'Arboleda']
+df1.drop(columns=['profesion', 'cod_suc_2018'], inplace=True)
+df1.set_index(['nom_suc'], inplace=True)
+df1.plot.bar(ax=ax1, figsize=(20, 10),
+             legend=False)
+ax1.set_xlabel('Destino donación')
+ax1.set_ylabel('Cantidad de donantes')
+ax1.set_title("Administradoras y su destino de donación 2018")
+ax2 = fig.add_subplot(gs[0, 1])  # row 0, col
+df1 = df.groupby(['profesion', 'cod_suc_2019'])['cod_ter'].count(
+).to_frame().sort_values('cod_ter', ascending=False).reset_index()
+df1 = df1.loc[df1['profesion'] == 'Administradora']
+# print(df1)
+df1['nom_suc'] = ['NA', 'Cedro', 'Torreon', 'Arboleda',
+                  'Mujeres Esc. Recur.', 'Casanueva',
+                  'Torreon C.E.']
+df1.drop(columns=['profesion', 'cod_suc_2019'], inplace=True)
+df1.set_index(['nom_suc'], inplace=True)
+df1.plot.bar(ax=ax2, figsize=(20, 10),
+             legend=False)
+ax2.set_xlabel('Destino donación')
+ax2.set_ylabel('Cantidad de donantes')
+ax2.set_title("Administradoras y su destino de donación 2019")
+ax3 = fig.add_subplot(gs[1, :])  # row 1, span all columns
+df1 = df.groupby(['profesion', 'cod_suc_2020'])['cod_ter'].count(
+).to_frame().sort_values('cod_ter', ascending=False).reset_index()
+df1 = df1.loc[df1['profesion'] == 'Administradora']
+# print(df1)
+df1['nom_suc'] = ['NA', 'Cedro', 'Arboleda', 'Torreon',
+                  'Mujeres Escasos Rec.', 'Fondo Sacerdotes',
+                  'Casanueva', 'Nogal']
+df1.drop(columns=['profesion', 'cod_suc_2020'], inplace=True)
+df1.set_index(['nom_suc'], inplace=True)
+df1.plot.bar(ax=ax3, figsize=(20, 10),
+             legend=False)
+ax3.set_xlabel('Destino donación')
+ax3.set_ylabel('Cantidad de donantes')
+ax3.set_title("Administradoras y su destino de donación 2020")
+for ax in fig.axes:
+    plt.sca(ax)
+    plt.xticks(rotation=20)
+fig.savefig('./images/particulares_internas/part_int_descriptivo_12_2.png')
+# plt.show()
+
+# centro de costos destino de cada donacion por profesion
+gs = gridspec.GridSpec(2, 2)
+fig = plt.figure()
+fig.suptitle(
+    'Insights: información caracteristica vs transaccional donante particulares internos')
+ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
+df1 = df.groupby(['profesion', 'cod_suc_2018'])['cod_ter'].count(
+).to_frame().sort_values('cod_ter', ascending=False).reset_index()
+df1 = df1.loc[df1['profesion'] == 'Ama de casa']
+# print(df1)
+df1['nom_suc'] = ['Torreon', 'Cedro', 'Serrania', 'NA',
+                  'Nogal']
+df1.drop(columns=['profesion', 'cod_suc_2018'], inplace=True)
+df1.set_index(['nom_suc'], inplace=True)
+df1.plot.bar(ax=ax1, figsize=(20, 10),
+             legend=False)
+ax1.set_xlabel('Destino donación')
+ax1.set_ylabel('Cantidad de donantes')
+ax1.set_title("Amas de casa y su destino de donación 2018")
+ax2 = fig.add_subplot(gs[0, 1])  # row 0, col
+df1 = df.groupby(['profesion', 'cod_suc_2019'])['cod_ter'].count(
+).to_frame().sort_values('cod_ter', ascending=False).reset_index()
+df1 = df1.loc[df1['profesion'] == 'Ama de casa']
+# print(df1)
+df1['nom_suc'] = ['Torreon', 'NA', 'Serrania',
+                  'Nogal', 'Cedro']
+df1.drop(columns=['profesion', 'cod_suc_2019'], inplace=True)
+df1.set_index(['nom_suc'], inplace=True)
+df1.plot.bar(ax=ax2, figsize=(20, 10),
+             legend=False)
+ax2.set_xlabel('Destino donación')
+ax2.set_ylabel('Cantidad de donantes')
+ax2.set_title("Amas de casa y su destino de donación 2019")
+ax3 = fig.add_subplot(gs[1, :])  # row 1, span all columns
+df1 = df.groupby(['profesion', 'cod_suc_2020'])['cod_ter'].count(
+).to_frame().sort_values('cod_ter', ascending=False).reset_index()
+df1 = df1.loc[df1['profesion'] == 'Ama de casa']
+# print(df1)
+df1['nom_suc'] = ['NA', 'Torreon', 'Serrania',
+                  'Nogal', 'Cedro']
+df1.drop(columns=['profesion', 'cod_suc_2020'], inplace=True)
+df1.set_index(['nom_suc'], inplace=True)
+df1.plot.bar(ax=ax3, figsize=(20, 10),
+             legend=False)
+ax3.set_xlabel('Destino donación')
+ax3.set_ylabel('Cantidad de donantes')
+ax3.set_title("Amas de casa y su destino de donación 2020")
+for ax in fig.axes:
+    plt.sca(ax)
+    plt.xticks(rotation=20)
+fig.savefig('./images/particulares_internas/part_int_descriptivo_12_3.png')
 # plt.show()
 
 
@@ -488,11 +830,32 @@ fig.savefig('./images/particulares_internas/part_int_descriptivo_11.png')
 
 # informacion de la profesion e insights
 fig, (ax1, ax2) = plt.subplots(1, 2)
+df['profesion'] = df['profesion'].replace('Hogar', 'Ama de casa')
+df['profesion'] = df['profesion'].replace(
+    'Administradora de empresas', 'Administradora')
+df['profesion'] = df['profesion'].replace('Contadora Publica', 'Contadora')
+df['profesion'] = df['profesion'].replace(
+    'Administradora en bienes raíces', 'Administradora')
+df['profesion'] = df['profesion'].replace(
+    'Administradora de instituciones de servicio', 'Administradora')
+df['profesion'] = df['profesion'].replace(
+    'Educadora', 'Profesora')
+df['profesion'] = df['profesion'].replace(
+    'Docente', 'Profesora')
+df['profesion'] = df['profesion'].replace(
+    'Medico', 'Médico')
+df['profesion'] = df['profesion'].replace(
+    'Medica', 'Médico')
+df['profesion'] = df['profesion'].replace(
+    'Psicologa', 'Psicóloga')
+df['profesion'] = df['profesion'].replace(
+    'Comunicadora Social', 'Comunicadora social')
 fig.suptitle(
     'Insights: información caracteristica vs transaccional donante particulares internos')
 df2 = df.groupby(['profesion']).size(
 ).to_frame().sort_values(0, ascending=False)
 df2 = df2.head(15)
+print(df2)
 df2.plot.bar(ax=ax1, figsize=(20, 10))
 ax1.set_xlabel('Profesion')
 ax1.set_ylabel('Número de donantes cooperadoras (personas)')
@@ -502,16 +865,17 @@ colors = ['blue', 'blue', 'blue', 'blue', 'blue',
 lines = [Line2D([0], [0], color=c, linewidth=2)
          for c in colors]
 labels = [
-    'Abogada', 'Ama de casa', 'Psicologa', 'Administradora de empresas',
-    'Economista', 'Médico', 'Pensionada', 'Educadora', 'Enfermera',
-    'Fisioterapeuta', 'Arquitecta', 'Contadora', 'Contadora Publica',
-    'Fonoaudiologa', 'Ingeniera Civil'
+    'Ama de casa', 'Administradora', 'Abogada', 'Médico', 'Psicologa',
+    'Economista', 'Profesora', 'Contadora', 'Pensionada',
+    'Fisioterapeuta', 'Enfermera', 'Arquitecta', 'Bacteriologa',
+    'Odontóloga', 'Comunicadora social'
 ]
 ax1.legend(lines, labels, loc='upper right', prop={'size': 9})
 ax1.set_title("Top 15 de profesiones más frecuentes")
 df2 = df.groupby(['profesion'])[
     'prom_donacion_mes'].sum().sort_values(0, ascending=False)
 df2 = df2.head(15)
+print(df2)
 df2.plot.bar(ax=ax2, figsize=(20, 10))
 ax2.set_xlabel('Profesion')
 ax2.set_ylabel('Promedio de donación mensual')
@@ -521,14 +885,12 @@ colors = ['blue', 'blue', 'blue', 'blue', 'blue',
 lines = [Line2D([0], [0], color=c, linewidth=2)
          for c in colors]
 labels = [
-    'Ama de casa', 'Abogada', 'Administradora en bienes raíces',
-    'Hogar', 'Profesora', 'Periodista - exdecana',
-    'Administradora de instituciones de servicio',
+    'Ama de casa', 'Administradora', 'Abogada',
+    'Profesora', 'Periodista - exdecana',
     'Terapista de lenguaje', 'Fisioterapeuta',
-    'Administradora de empresas', 'Nutricionista',
-    'Economista', 'Arquitecta', 'Ingeniera Quimica',
-    'Administradora']
-
+    'Nutricionista', 'Economista', 'Arquitecta',
+    'Ingeniera Quimica', 'Psicologa', 'Ingeniera Civil',
+    'Diseñador industrial', 'Médico']
 ax2.legend(lines, labels, loc='upper right', prop={'size': 9})
 ax2.set_title("Top 15 de profesiones que más donan")
 for ax in fig.axes:

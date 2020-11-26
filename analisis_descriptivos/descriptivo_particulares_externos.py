@@ -276,7 +276,7 @@ df1['nom_cco'] = ['Bonos Donacion', 'Historia del Arte', 'Capsulas JUV',
 df1.drop(columns=['categ_cco_2020', 'cod_cco_2020'], inplace=True)
 df1.set_index('nom_cco', inplace=True)
 df1.plot.bar(ax=ax3, figsize=(20, 10), legend=False)
-ax3.set_xlabel('CCO Donante Eventos Actividades Productos')
+ax3.set_xlabel('Donante Eventos Actividades Productos')
 ax3.set_ylabel('Cantidad de donantes')
 ax3.set_title("Origen donación: Eventos, Actividades y Productos 2020")
 for ax in fig.axes:
