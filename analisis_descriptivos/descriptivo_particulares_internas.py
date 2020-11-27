@@ -105,7 +105,48 @@ ax3.set_title("Para quién o qué van las donaciones 2020")
 for ax in fig.axes:
     plt.sca(ax)
     plt.xticks(rotation=0)
-fig.savefig('./images/particulares_internas/part_int_descriptivo_3.png')
+fig.savefig('./images/particulares_internas/part_int_descriptivo_3_1.png')
+# plt.show()
+
+# sucrsal fuente de cada donacion año a año
+gs = gridspec.GridSpec(2, 2)
+fig = plt.figure()
+fig.suptitle(
+    'Insights: información caracteristica vs transaccional del donante particulares internas')
+ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
+df1 = df.groupby(['categ_suc_2018'])['total_2018'].sum().to_frame()
+df1['sucursal'] = ['no aplica', 'centros', 'ACF', 'labores sociales']
+df1.reset_index(inplace=True)
+df1.drop(columns=['categ_suc_2018'], inplace=True)
+df1.set_index('sucursal', inplace=True)
+df1.plot.bar(ax=ax1, figsize=(20, 10), colors=color, legend=False)
+ax1.set_xlabel('Destino donación')
+ax1.set_ylabel('Monto donado COP(+ 0.000.000)')
+ax1.set_title("Monto total donado a cada destino 2018")
+ax2 = fig.add_subplot(gs[0, 1])
+df1 = df.groupby(['categ_suc_2019'])['total_2019'].sum().to_frame()
+df1['sucursal'] = ['no aplica', 'centros', 'ACF', 'labores sociales']
+df1.reset_index(inplace=True)
+df1.drop(columns=['categ_suc_2019'], inplace=True)
+df1.set_index('sucursal', inplace=True)
+df1.plot.bar(ax=ax2, figsize=(20, 10), colors=color, legend=False)
+ax2.set_xlabel('Destino donación')
+ax2.set_ylabel('Monto donado COP (+ 0.000.000)')
+ax2.set_title("Monto total donado a cada destino 2019")
+ax3 = fig.add_subplot(gs[1, :])
+df1 = df.groupby(['categ_suc_2020'])['total_2020'].sum().to_frame()
+df1['sucursal'] = ['no aplica', 'centros', 'ACF', 'labores sociales']
+df1.reset_index(inplace=True)
+df1.drop(columns=['categ_suc_2020'], inplace=True)
+df1.set_index('sucursal', inplace=True)
+df1.plot.bar(ax=ax3, figsize=(20, 10), colors=color, legend=False)
+ax3.set_xlabel('Destino donación')
+ax3.set_ylabel('Monto donado COP (+ 0.000.000)')
+ax3.set_title("Monto total donado a cada destino 2020")
+for ax in fig.axes:
+    plt.sca(ax)
+    plt.xticks(rotation=0)
+fig.savefig('./images/particulares_internas/part_int_descriptivo_3_2.png')
 # plt.show()
 
 # Top sucursal: centor cultural fuente de cada donacion año a año
@@ -123,7 +164,7 @@ df1['nom_suc'] = ['Cedro', 'Inaya', 'Nogal', 'Portones', 'Torreon', 'Arboleda',
 df1.drop(columns=['categ_suc_2018', 'cod_suc_2018'], inplace=True)
 df1.set_index('nom_suc', inplace=True)
 df1.plot.bar(ax=ax1, legend=False)
-ax1.set_xlabel('Destino Donación:')
+ax1.set_xlabel('Centro cultural')
 ax1.set_ylabel('Cantidad de donantes')
 ax1.set_title("Destino Donación: Centro Cultural 2018")
 ax2 = fig.add_subplot(gs[0, 1])
@@ -136,7 +177,7 @@ df1['nom_suc'] = ['Cedro', 'Nogal', 'Portones', 'Torreon', 'Arboleda',
 df1.drop(columns=['categ_suc_2019', 'cod_suc_2019'], inplace=True)
 df1.set_index('nom_suc', inplace=True)
 df1.plot.bar(ax=ax2, figsize=(20, 10), legend=False)
-ax2.set_xlabel('Destino Donación:')
+ax2.set_xlabel('Centro cultural')
 ax2.set_ylabel('Cantidad de donantes')
 ax2.set_title("Destino Donación: Centro Cultural 2019")
 ax3 = fig.add_subplot(gs[1, :])
@@ -149,13 +190,63 @@ df1['nom_suc'] = ['Cedro', 'Nogal', 'Portones', 'Arboleda',
 df1.drop(columns=['categ_suc_2020', 'cod_suc_2020'], inplace=True)
 df1.set_index('nom_suc', inplace=True)
 df1.plot.bar(ax=ax3, figsize=(20, 10), legend=False)
-ax3.set_xlabel('Labor Social')
+ax3.set_xlabel('Centro cultural')
 ax3.set_ylabel('Cantidad de donantes')
-ax3.set_title("Destino Donación: Labor Social 2020")
+ax3.set_title("Destino Donación: Centro Cultural 2020")
 for ax in fig.axes:
     plt.sca(ax)
-    plt.xticks(rotation=15)
-fig.savefig('./images/particulares_internas/part_int_descriptivo_3_1.png')
+    plt.xticks(rotation=0)
+fig.savefig('./images/particulares_internas/part_int_descriptivo_3_1_1.png')
+# plt.show()
+
+# Top sucursal: centor cultural fuente de cada donacion año a año
+gs = gridspec.GridSpec(2, 2)
+fig = plt.figure()
+fig.suptitle(
+    'Insights: información caracteristica vs transaccional de donante particulares internas')
+ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
+df1 = df.groupby(['categ_suc_2018', 'cod_suc_2018'])[
+    'total_2018'].sum().reset_index()
+df1 = df1.loc[df1['categ_suc_2018'] == 1.0]
+# print(df1)
+df1['nom_suc'] = ['Cedro', 'Inaya', 'Nogal', 'Portones', 'Torreon', 'Arboleda',
+                  'Naval', 'Torr-C.E.']
+df1.drop(columns=['categ_suc_2018', 'cod_suc_2018'], inplace=True)
+df1.set_index('nom_suc', inplace=True)
+df1.plot.bar(ax=ax1, legend=False)
+ax1.set_xlabel('Centro cultural')
+ax1.set_ylabel('Monto donado COP (+ 0.000.000)')
+ax1.set_title("Destino Donación: Centro Cultural 2018")
+ax2 = fig.add_subplot(gs[0, 1])
+df1 = df.groupby(['categ_suc_2019', 'cod_suc_2019'])[
+    'total_2019'].sum().reset_index()
+df1 = df1.loc[df1['categ_suc_2019'] == 1.0]
+# print(df1)
+df1['nom_suc'] = ['Cedro', 'Nogal', 'Portones', 'Torreon', 'Arboleda',
+                  'Naval', 'Torr-C.E.']
+df1.drop(columns=['categ_suc_2019', 'cod_suc_2019'], inplace=True)
+df1.set_index('nom_suc', inplace=True)
+df1.plot.bar(ax=ax2, figsize=(20, 10), legend=False)
+ax2.set_xlabel('Centro Cultural')
+ax2.set_ylabel('Monto donado COP (+ 0.000.000)')
+ax2.set_title("Destino Donación: Centro Cultural 2019")
+ax3 = fig.add_subplot(gs[1, :])
+df1 = df.groupby(['categ_suc_2020', 'cod_suc_2020'])[
+    'total_2020'].sum().reset_index()
+df1 = df1.loc[df1['categ_suc_2020'] == 1.0]
+# print(df1)
+df1['nom_suc'] = ['Cedro', 'Nogal', 'Portones', 'Arboleda',
+                  'Naval']
+df1.drop(columns=['categ_suc_2020', 'cod_suc_2020'], inplace=True)
+df1.set_index('nom_suc', inplace=True)
+df1.plot.bar(ax=ax3, figsize=(20, 10), legend=False)
+ax3.set_xlabel('Centro cultural')
+ax3.set_ylabel('Monto donado COP')
+ax3.set_title("Destino Donación: Centro Cultural 2020")
+for ax in fig.axes:
+    plt.sca(ax)
+    plt.xticks(rotation=0)
+fig.savefig('./images/particulares_internas/part_int_descriptivo_3_2_1.png')
 # plt.show()
 
 gs = gridspec.GridSpec(2, 2)
@@ -171,9 +262,9 @@ df1['nom_suc'] = ['ICSEF', 'Casanueva (JUV)', 'Fondo Sacerdotes']
 df1.drop(columns=['categ_suc_2018', 'cod_suc_2018'], inplace=True)
 df1.set_index('nom_suc', inplace=True)
 df1.plot.bar(ax=ax1, legend=False)
-ax1.set_xlabel('Destino Donación:')
+ax1.set_xlabel('Labor social')
 ax1.set_ylabel('Cantidad de donantes')
-ax1.set_title("Destino Donación: Centro Cultural 2018")
+ax1.set_title("Destino Donación: Labor Social 2018")
 ax2 = fig.add_subplot(gs[0, 1])
 df1 = df.groupby(['categ_suc_2019', 'cod_suc_2019'])[
     'cod_ter'].count().reset_index()
@@ -183,9 +274,9 @@ df1['nom_suc'] = ['ICSEF', 'Casanueva (JUV)', 'Fondo Sacerdotes']
 df1.drop(columns=['categ_suc_2019', 'cod_suc_2019'], inplace=True)
 df1.set_index('nom_suc', inplace=True)
 df1.plot.bar(ax=ax2, figsize=(20, 10), legend=False)
-ax2.set_xlabel('Destino Donación:')
+ax2.set_xlabel('Labor social')
 ax2.set_ylabel('Cantidad de donantes')
-ax2.set_title("Destino Donación: Centro Cultural 2019")
+ax2.set_title("Destino Donación: Labor Social 2019")
 ax3 = fig.add_subplot(gs[1, :])
 df1 = df.groupby(['categ_suc_2020', 'cod_suc_2020'])[
     'cod_ter'].count().reset_index()
@@ -201,8 +292,55 @@ ax3.set_ylabel('Cantidad de donantes')
 ax3.set_title("Destino Donación: Labor Social 2020")
 for ax in fig.axes:
     plt.sca(ax)
-    plt.xticks(rotation=15)
-fig.savefig('./images/particulares_internas/part_int_descriptivo_3_2.png')
+    plt.xticks(rotation=0)
+fig.savefig('./images/particulares_internas/part_int_descriptivo_3_1_2.png')
+# plt.show()
+
+gs = gridspec.GridSpec(2, 2)
+fig = plt.figure()
+fig.suptitle(
+    'Insights: información caracteristica vs transaccional de donante particulares internas')
+ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
+df1 = df.groupby(['categ_suc_2018', 'cod_suc_2018'])[
+    'total_2018'].sum().reset_index()
+df1 = df1.loc[df1['categ_suc_2018'] == 3.0]
+# print(df1)
+df1['nom_suc'] = ['ICSEF', 'Casanueva (JUV)', 'Fondo Sacerdotes']
+df1.drop(columns=['categ_suc_2018', 'cod_suc_2018'], inplace=True)
+df1.set_index('nom_suc', inplace=True)
+df1.plot.bar(ax=ax1, legend=False)
+ax1.set_xlabel('Destino Donación')
+ax1.set_ylabel('Monto donado COP (+ 0.000.000)')
+ax1.set_title("Destino Donación: Labor Social 2018")
+ax2 = fig.add_subplot(gs[0, 1])
+df1 = df.groupby(['categ_suc_2019', 'cod_suc_2019'])[
+    'total_2019'].sum().reset_index()
+df1 = df1.loc[df1['categ_suc_2019'] == 3.0]
+# print(df1)
+df1['nom_suc'] = ['ICSEF', 'Casanueva (JUV)', 'Fondo Sacerdotes']
+df1.drop(columns=['categ_suc_2019', 'cod_suc_2019'], inplace=True)
+df1.set_index('nom_suc', inplace=True)
+df1.plot.bar(ax=ax2, figsize=(20, 10), legend=False)
+ax2.set_xlabel('Destino Donación')
+ax2.set_ylabel('Monto donado COP (+ 0.000.000)')
+ax2.set_title("Destino Donación: Labor Social 2019")
+ax3 = fig.add_subplot(gs[1, :])
+df1 = df.groupby(['categ_suc_2020', 'cod_suc_2020'])[
+    'total_2020'].sum().reset_index()
+df1 = df1.loc[df1['categ_suc_2020'] == 3.0]
+# print(df1)
+df1['nom_suc'] = ['ICSEF', 'Casanueva (JUV)', 'Fondo Sacerdotes', 'APoyo Venezuela',
+                  'Mujeres Escasos Rec.']
+df1.drop(columns=['categ_suc_2020', 'cod_suc_2020'], inplace=True)
+df1.set_index('nom_suc', inplace=True)
+df1.plot.bar(ax=ax3, figsize=(20, 10), legend=False)
+ax3.set_xlabel('Labor Social')
+ax3.set_ylabel('Monto donado COP (+ 0.000.000)')
+ax3.set_title("Destino Donación: Labor Social 2020")
+for ax in fig.axes:
+    plt.sca(ax)
+    plt.xticks(rotation=0)
+fig.savefig('./images/particulares_internas/part_int_descriptivo_3_2_2.png')
 # plt.show()
 
 # centro de costos destino de cada donacion
@@ -517,8 +655,7 @@ df1 = df.groupby(['profesion', 'cod_suc_2018'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).reset_index()
 df1 = df1.loc[df1['profesion'] == 'Abogada']
 # print(df1)
-df1['nom_suc'] = ['NA', 'Torreon', 'Nogal', 'Cedro', 'Portones', 'ACF',
-                  'Narval', 'Mirabal']
+df1['nom_suc'] = ['NA', 'Arboleda', 'ACF', 'Nogal']
 df1.drop(columns=['profesion', 'cod_suc_2018'], inplace=True)
 df1.set_index(['nom_suc'], inplace=True)
 df1.plot.bar(ax=ax1, figsize=(20, 10),
@@ -531,9 +668,8 @@ df1 = df.groupby(['profesion', 'cod_suc_2019'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).reset_index()
 df1 = df1.loc[df1['profesion'] == 'Abogada']
 # print(df1)
-df1['nom_suc'] = ['Torreon', 'NA', 'Nogal', 'Arboleda',
-                  'Cedro', 'Portones', 'ACF', 'Serrania',
-                  'Casanueva']
+df1['nom_suc'] = ['NA', 'Torreon', 'Arboleda', 'Fondo Sacerdotes',
+                  'Narval', 'ACF']
 df1.drop(columns=['profesion', 'cod_suc_2019'], inplace=True)
 df1.set_index(['nom_suc'], inplace=True)
 df1.plot.bar(ax=ax2, figsize=(20, 10),
@@ -546,8 +682,8 @@ df1 = df.groupby(['profesion', 'cod_suc_2020'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).reset_index()
 df1 = df1.loc[df1['profesion'] == 'Abogada']
 # print(df1)
-df1['nom_suc'] = ['Portones', 'NA', 'Nogal', 'Cedro', 'Arboleda', 'Torreon CE',
-                  'Protones', 'Mujeres Escasos Rec.']
+df1['nom_suc'] = ['NA', 'Mujeres Escasos Recur', 'Fondo Sacerdotes',
+                  'Casanueva']
 df1.drop(columns=['profesion', 'cod_suc_2020'], inplace=True)
 df1.set_index(['nom_suc'], inplace=True)
 df1.plot.bar(ax=ax3, figsize=(20, 10),
@@ -571,7 +707,7 @@ df1 = df.groupby(['profesion', 'cod_suc_2018'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).reset_index()
 df1 = df1.loc[df1['profesion'] == 'Administradora']
 # print(df1)
-df1['nom_suc'] = ['NA', 'Torreon', 'Cedro', 'Torreon C.E.', 'Arboleda']
+df1['nom_suc'] = ['NA', 'Cedro', 'Casanueva', 'ACF', 'Arboleda', 'Torreon']
 df1.drop(columns=['profesion', 'cod_suc_2018'], inplace=True)
 df1.set_index(['nom_suc'], inplace=True)
 df1.plot.bar(ax=ax1, figsize=(20, 10),
@@ -584,9 +720,7 @@ df1 = df.groupby(['profesion', 'cod_suc_2019'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).reset_index()
 df1 = df1.loc[df1['profesion'] == 'Administradora']
 # print(df1)
-df1['nom_suc'] = ['NA', 'Cedro', 'Torreon', 'Arboleda',
-                  'Mujeres Esc. Recur.', 'Casanueva',
-                  'Torreon C.E.']
+df1['nom_suc'] = ['ACF', 'Arboleda', 'NA', 'Fondo sacerdotes', 'Portones']
 df1.drop(columns=['profesion', 'cod_suc_2019'], inplace=True)
 df1.set_index(['nom_suc'], inplace=True)
 df1.plot.bar(ax=ax2, figsize=(20, 10),
@@ -599,9 +733,8 @@ df1 = df.groupby(['profesion', 'cod_suc_2020'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).reset_index()
 df1 = df1.loc[df1['profesion'] == 'Administradora']
 # print(df1)
-df1['nom_suc'] = ['NA', 'Cedro', 'Arboleda', 'Torreon',
-                  'Mujeres Escasos Rec.', 'Fondo Sacerdotes',
-                  'Casanueva', 'Nogal']
+df1['nom_suc'] = ['Mujeres Escasos Rec.', 'NA', 'ACF',
+                  'Casanueva', 'Arboleda']
 df1.drop(columns=['profesion', 'cod_suc_2020'], inplace=True)
 df1.set_index(['nom_suc'], inplace=True)
 df1.plot.bar(ax=ax3, figsize=(20, 10),
@@ -625,8 +758,7 @@ df1 = df.groupby(['profesion', 'cod_suc_2018'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).reset_index()
 df1 = df1.loc[df1['profesion'] == 'Ama de casa']
 # print(df1)
-df1['nom_suc'] = ['Torreon', 'Cedro', 'Serrania', 'NA',
-                  'Nogal']
+df1['nom_suc'] = ['NA', 'Nogal', 'Fondo sacerdotes', 'Narval', 'Cedro']
 df1.drop(columns=['profesion', 'cod_suc_2018'], inplace=True)
 df1.set_index(['nom_suc'], inplace=True)
 df1.plot.bar(ax=ax1, figsize=(20, 10),
@@ -639,8 +771,8 @@ df1 = df.groupby(['profesion', 'cod_suc_2019'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).reset_index()
 df1 = df1.loc[df1['profesion'] == 'Ama de casa']
 # print(df1)
-df1['nom_suc'] = ['Torreon', 'NA', 'Serrania',
-                  'Nogal', 'Cedro']
+df1['nom_suc'] = ['NA', 'ACF', 'Nogal', 'Fondo sacerdotes',
+                  'Arboleda', 'Cedro']
 df1.drop(columns=['profesion', 'cod_suc_2019'], inplace=True)
 df1.set_index(['nom_suc'], inplace=True)
 df1.plot.bar(ax=ax2, figsize=(20, 10),
@@ -653,8 +785,8 @@ df1 = df.groupby(['profesion', 'cod_suc_2020'])['cod_ter'].count(
 ).to_frame().sort_values('cod_ter', ascending=False).reset_index()
 df1 = df1.loc[df1['profesion'] == 'Ama de casa']
 # print(df1)
-df1['nom_suc'] = ['NA', 'Torreon', 'Serrania',
-                  'Nogal', 'Cedro']
+df1['nom_suc'] = ['Mujeres Escasos Rec', 'NA', 'Cedro',
+                  'Fondo Sacerdotes', 'ACF']
 df1.drop(columns=['profesion', 'cod_suc_2020'], inplace=True)
 df1.set_index(['nom_suc'], inplace=True)
 df1.plot.bar(ax=ax3, figsize=(20, 10),
@@ -677,7 +809,7 @@ fig.savefig('./images/particulares_internas/part_int_descriptivo_12_3.png')
 df = pd.read_csv(
     '../bd_finales/part_int_transaccional_caracterizacion.csv')
 # coop.set_index('cod_ter', inplace=True)
-print(df.columns.values)
+# print(df.columns.values)
 # print(coop)
 df['cod_ter'] = df['cod_ter'].astype('int32', copy=False)
 df['fecha_nacimiento'] = pd.to_datetime(df['fecha_nacimiento'],
@@ -855,7 +987,7 @@ fig.suptitle(
 df2 = df.groupby(['profesion']).size(
 ).to_frame().sort_values(0, ascending=False)
 df2 = df2.head(15)
-print(df2)
+# print(df2)
 df2.plot.bar(ax=ax1, figsize=(20, 10))
 ax1.set_xlabel('Profesion')
 ax1.set_ylabel('Número de donantes cooperadoras (personas)')
@@ -875,7 +1007,7 @@ ax1.set_title("Top 15 de profesiones más frecuentes")
 df2 = df.groupby(['profesion'])[
     'prom_donacion_mes'].sum().sort_values(0, ascending=False)
 df2 = df2.head(15)
-print(df2)
+# print(df2)
 df2.plot.bar(ax=ax2, figsize=(20, 10))
 ax2.set_xlabel('Profesion')
 ax2.set_ylabel('Promedio de donación mensual')
@@ -974,3 +1106,5 @@ for ax in fig.axes:
     plt.xticks(rotation=0)
 fig.savefig('./images/particulares_internas/part_int_descriptivo_14.png')
 # plt.show()
+
+plt.close('all')
