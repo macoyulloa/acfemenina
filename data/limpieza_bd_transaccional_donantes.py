@@ -150,12 +150,43 @@ df_2018.drop(index_names, inplace=True)
 index_names = df_2018[df_2018['categoria_suc'] == 5].index
 df_2018.drop(index_names, inplace=True)
 
+##########################################
+# canal usado para la donación
+df_2018['canal'] = df_2018['des_mov'].str.split('-', expand=True)[0]
+df_2018['canal'] = df_2018['canal'].str.split(' ', expand=True)[1]
+# print(df_2018['canal'])
+
+###########################################
+# crear columna mes a partir de la columna periodo
+
+conditions = [
+    (df_2018['periodo'] == 1),
+    (df_2018['periodo'] == 2),
+    (df_2018['periodo'] == 3),
+    (df_2018['periodo'] == 4),
+    (df_2018['periodo'] == 5),
+    (df_2018['periodo'] == 6),
+    (df_2018['periodo'] == 7),
+    (df_2018['periodo'] == 8),
+    (df_2018['periodo'] == 9),
+    (df_2018['periodo'] == 10),
+    (df_2018['periodo'] == 11),
+    (df_2018['periodo'] == 12),
+]
+values = ['enero', 'febrero', 'marzo', 'abril', 'mayo',
+          'junio', 'julio', 'agosto', 'septiembre', 'octubre',
+          'noviembre', 'diciembre']
+
+# create a new column. Asignar los valores dependiendo de las condiciones
+df_2018['mes'] = np.select(conditions, values)
+# print(df_2018['mes'])
+
 # print(df_2018.groupby(['categoria_suc']).first())
 
 df_2018.to_csv('./contabilidad_limpios/Auxiliar_Donantes_2018.csv',
                index=False, encoding='utf-8')
-print(df_2018.head())
-print(len(df_2018.index))
+# print(df_2018.head())
+# print(len(df_2018.index))
 
 
 ##########################################################################
@@ -195,7 +226,7 @@ values = [0, 1, 2, 1, 4, 1, 3, 5]
 df_2019['categoria_suc'] = np.select(conditions, values)
 
 
-## categorizar centros de costos
+# categorizar centros de costos
 # columna categorización de centros de costos, basada en la columna cod_cco
 conditions = [
     (df_2019['cod_cco'] == 0),
@@ -306,6 +337,37 @@ df_2019.drop(index_names, inplace=True)
 
 # print(df_2019.groupby(['categoria_suc']).first())
 
+##########################################
+# canal usado para la donación
+df_2019['canal'] = df_2019['des_mov'].str.split('-', expand=True)[0]
+df_2019['canal'] = df_2019['canal'].str.split(' ', expand=True)[1]
+# print(df_2018['canal'])
+
+###########################################
+# crear columna mes a partir de la columna periodo
+
+conditions = [
+    (df_2019['periodo'] == 1),
+    (df_2019['periodo'] == 2),
+    (df_2019['periodo'] == 3),
+    (df_2019['periodo'] == 4),
+    (df_2019['periodo'] == 5),
+    (df_2019['periodo'] == 6),
+    (df_2019['periodo'] == 7),
+    (df_2019['periodo'] == 8),
+    (df_2019['periodo'] == 9),
+    (df_2019['periodo'] == 10),
+    (df_2019['periodo'] == 11),
+    (df_2019['periodo'] == 12),
+]
+values = ['enero', 'febrero', 'marzo', 'abril', 'mayo',
+          'junio', 'julio', 'agosto', 'septiembre', 'octubre',
+          'noviembre', 'diciembre']
+
+# create a new column. Asignar los valores dependiendo de las condiciones
+df_2019['mes'] = np.select(conditions, values)
+# print(df_2018['mes'])
+
 df_2019.to_csv('./contabilidad_limpios/Auxiliar_Donantes_2019.csv',
                index=False, encoding='utf-8')
 print(df_2019.head())
@@ -350,7 +412,7 @@ values = [0, 1, 2, 1, 4, 1, 3, 5]
 df_2020['categoria_suc'] = np.select(conditions, values)
 
 
-## categorizar centros de costos
+# categorizar centros de costos
 # columna categorización de centros de costos, basada en la columna cod_cco
 conditions = [
     (df_2020['cod_cco'] == 0),
@@ -460,6 +522,38 @@ index_names = df_2020[df_2020['categoria_suc'] == 5].index
 df_2020.drop(index_names, inplace=True)
 
 # print(df_2020.groupby(['categoria_suc']).first())
+
+##########################################
+# canal usado para la donación
+df_2020['canal'] = df_2020['des_mov'].str.split('-', expand=True)[0]
+df_2020['canal'] = df_2020['canal'].str.split(' ', expand=True)[1]
+# print(df_2020['canal'])
+
+###########################################
+# crear columna mes a partir de la columna periodo
+
+conditions = [
+    (df_2020['periodo'] == 1),
+    (df_2020['periodo'] == 2),
+    (df_2020['periodo'] == 3),
+    (df_2020['periodo'] == 4),
+    (df_2020['periodo'] == 5),
+    (df_2020['periodo'] == 6),
+    (df_2020['periodo'] == 7),
+    (df_2020['periodo'] == 8),
+    (df_2020['periodo'] == 9),
+    (df_2020['periodo'] == 10),
+    (df_2020['periodo'] == 11),
+    (df_2020['periodo'] == 12),
+]
+values = ['enero', 'febrero', 'marzo', 'abril', 'mayo',
+          'junio', 'julio', 'agosto', 'septiembre', 'octubre',
+          'noviembre', 'diciembre']
+
+# create a new column. Asignar los valores dependiendo de las condiciones
+df_2020['mes'] = np.select(conditions, values)
+# print(df_2020['mes'])
+
 print(df_2020.head())
 print(len(df_2020.index))
 print(df_2020.columns.values)
@@ -467,14 +561,18 @@ print(df_2020.columns.values)
 df_2020.to_csv('./contabilidad_limpios/Auxiliar_Donantes_2020.csv',
                index=False, encoding='utf-8')
 
+#df_2018 = df_2018.groupby(['cod_ter']).first()
+# print(len(df_2018))
+#df_2019 = df_2019.groupby(['cod_ter']).first()
+# print(len(df_2019))
+#df_2020 = df_2020.groupby(['cod_ter']).first()
+# print(len(df_2020))
+#df_total = pd.merge(df_2018, df_2019, on='cod_ter', how='outer')
+#df_total = pd.merge(df_total, df_2020, on='cod_ter', how='outer')
 
-df_2018 = df_2018.groupby(['cod_ter']).first()
-print(len(df_2018))
-df_2019 = df_2019.groupby(['cod_ter']).first()
-print(len(df_2019))
-df_2020 = df_2020.groupby(['cod_ter']).first()
-print(len(df_2020))
+df_total = pd.concat([df_2018, df_2019, df_2020], ignore_index=True)
+df_total.to_csv('./contabilidad_limpios/Auxiliar_Donantes.csv',
+                index=False, encoding='utf-8')
 
-df_total = pd.merge(df_2018, df_2019, on='cod_ter', how='outer')
-df_total = pd.merge(df_total, df_2020, on='cod_ter', how='outer')
 print(len(df_total))
+print(df_total.tail())
