@@ -150,6 +150,10 @@ df_2018.drop(index_names, inplace=True)
 index_names = df_2018[df_2018['categoria_suc'] == 5].index
 df_2018.drop(index_names, inplace=True)
 
+# eliminar des_mov anulados
+index_names = df_2018[df_2018['des_mov'] == '-ANULADO-'].index
+df_2018.drop(index_names, inplace=True)
+
 ##########################################
 # canal usado para la donación
 df_2018['canal'] = df_2018['des_mov'].str.split('-', expand=True)[0]
@@ -333,6 +337,10 @@ df_2019.drop(index_names, inplace=True)
 
 # número 5, categoría sucursal: aliados de la ACF
 index_names = df_2019[df_2019['categoria_suc'] == 5].index
+df_2019.drop(index_names, inplace=True)
+
+# eliminar des_mov anulados
+index_names = df_2019[df_2019['des_mov'] == '-ANULADO-'].index
 df_2019.drop(index_names, inplace=True)
 
 # print(df_2019.groupby(['categoria_suc']).first())
@@ -519,6 +527,10 @@ df_2020.drop(index_names, inplace=True)
 
 # número 5, categoría sucursal: aliados de la ACF
 index_names = df_2020[df_2020['categoria_suc'] == 5].index
+df_2020.drop(index_names, inplace=True)
+
+# eliminar des_mov anulados
+index_names = df_2020[df_2020['des_mov'] == '-ANULADO-'].index
 df_2020.drop(index_names, inplace=True)
 
 # print(df_2020.groupby(['categoria_suc']).first())
