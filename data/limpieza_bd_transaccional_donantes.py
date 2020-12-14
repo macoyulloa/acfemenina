@@ -185,11 +185,82 @@ values = ['enero', 'febrero', 'marzo', 'abril', 'mayo',
 df_2018['mes'] = np.select(conditions, values)
 # print(df_2018['mes'])
 
+###########################################
+# crear columna fuente de donación sa partir de categoria cco
+
+conditions = [
+    (df_2018['categoria_cco'] == 21),
+    (df_2018['categoria_cco'] == 22),
+    (df_2018['categoria_cco'] == 23),
+    (df_2018['categoria_cco'] == 4),
+    (df_2018['categoria_cco'] == 6)
+]
+values = ['D. Cooperadoras', 'D. Empresas', 'D. Particulares',
+          'Mantenimineto Centros', 'Eventos, Actividades y Productos']
+
+# create a new column. Asignar los valores dependiendo de las condiciones
+df_2018['origen_donacion'] = np.select(conditions, values)
+
+###########################################
+# crear columna fuente de donación sa partir de categoria cco
+
+conditions = [
+    (df_2018['cod_suc'] == 0),
+    (df_2018['cod_suc'] == 5),
+    (df_2018['cod_suc'] == 10),
+    (df_2018['cod_suc'] == 15),
+    (df_2018['cod_suc'] == 20),
+    (df_2018['cod_suc'] == 25),
+    (df_2018['cod_suc'] == 30),
+    (df_2018['cod_suc'] == 35),
+    (df_2018['cod_suc'] == 40),
+    (df_2018['cod_suc'] == 45),
+    (df_2018['cod_suc'] == 50),
+    (df_2018['cod_suc'] == 55),
+    (df_2018['cod_suc'] == 60),
+    (df_2018['cod_suc'] == 85),
+    (df_2018['cod_suc'] == 90),
+    (df_2018['cod_suc'] == 95),
+    (df_2018['cod_suc'] == 100),
+    (df_2018['cod_suc'] == 105),
+    (df_2018['cod_suc'] == 110),
+    (df_2018['cod_suc'] == 115),
+    (df_2018['cod_suc'] == 120),
+    (df_2018['cod_suc'] == 125),
+    (df_2018['cod_suc'] == 205),
+    (df_2018['cod_suc'] == 210),
+    (df_2018['cod_suc'] == 215),
+    (df_2018['cod_suc'] == 220),
+    (df_2018['cod_suc'] == 225),
+    (df_2018['cod_suc'] == 250),
+    (df_2018['cod_suc'] == 300),
+    (df_2018['cod_suc'] == 320),
+    (df_2018['cod_suc'] == 340),
+    (df_2018['cod_suc'] == 350),
+    (df_2018['cod_suc'] == 360)
+]
+values = [
+    "No Aplica", "Cedro",
+    "Inaya", "Nogal", "Portones", "Torreon",
+    "Yari", "Arboleda", "Cendal", "Ariza",
+    "Entidad Gestora", "Narval", "Diagonal",
+    "Nogal - Villavicencio", "Torreon - Curso Estudios",
+    "El Cedro - Neiva", "Auxiliares Externas",
+    "Belayes", "La Casona", "Mirabal", "Rocalla",
+    "Serrania", "Icsef", "Colegio Integral Femenino",
+    "Gimnasio Tundama", "Casanueva", "Fondo Sacerdotes",
+    "Casanueva Admon", "Apartamiento 116",
+    "Apoyo Venezuela", "Apoyo Familias Juventus",
+    "Admon Terceros", "Mujeres Escasos Recursos"]
+# create a new column. Asignar los valores dependiendo de las condiciones
+df_2018['destino_donacion'] = np.select(conditions, values)
+
 # print(df_2018.groupby(['categoria_suc']).first())
 
 df_2018.to_csv('./contabilidad_limpios/Auxiliar_Donantes_2018.csv',
                index=False, encoding='utf-8')
-# print(df_2018.head())
+print(df_2018.head())
+print(df_2018.columns.values)
 # print(len(df_2018.index))
 
 
@@ -375,6 +446,76 @@ values = ['enero', 'febrero', 'marzo', 'abril', 'mayo',
 # create a new column. Asignar los valores dependiendo de las condiciones
 df_2019['mes'] = np.select(conditions, values)
 # print(df_2018['mes'])
+
+###########################################
+# crear columna fuente de donación sa partir de categoria cco
+
+conditions = [
+    (df_2019['categoria_cco'] == 21),
+    (df_2019['categoria_cco'] == 22),
+    (df_2019['categoria_cco'] == 23),
+    (df_2019['categoria_cco'] == 4),
+    (df_2019['categoria_cco'] == 6)
+]
+values = ['D. Cooperadoras', 'D. Empresas', 'D. Particulares',
+          'Mantenimineto Centros', 'Eventos, Actividades y Productos']
+
+# create a new column. Asignar los valores dependiendo de las condiciones
+df_2019['origen_donacion'] = np.select(conditions, values)
+
+###########################################
+# crear columna fuente de donación sa partir de categoria cco
+
+conditions = [
+    (df_2019['cod_suc'] == 0),
+    (df_2019['cod_suc'] == 5),
+    (df_2019['cod_suc'] == 10),
+    (df_2019['cod_suc'] == 15),
+    (df_2019['cod_suc'] == 20),
+    (df_2019['cod_suc'] == 25),
+    (df_2019['cod_suc'] == 30),
+    (df_2019['cod_suc'] == 35),
+    (df_2019['cod_suc'] == 40),
+    (df_2019['cod_suc'] == 45),
+    (df_2019['cod_suc'] == 50),
+    (df_2019['cod_suc'] == 55),
+    (df_2019['cod_suc'] == 60),
+    (df_2019['cod_suc'] == 85),
+    (df_2019['cod_suc'] == 90),
+    (df_2019['cod_suc'] == 95),
+    (df_2019['cod_suc'] == 100),
+    (df_2019['cod_suc'] == 105),
+    (df_2019['cod_suc'] == 110),
+    (df_2019['cod_suc'] == 115),
+    (df_2019['cod_suc'] == 120),
+    (df_2019['cod_suc'] == 125),
+    (df_2019['cod_suc'] == 205),
+    (df_2019['cod_suc'] == 210),
+    (df_2019['cod_suc'] == 215),
+    (df_2019['cod_suc'] == 220),
+    (df_2019['cod_suc'] == 225),
+    (df_2019['cod_suc'] == 250),
+    (df_2019['cod_suc'] == 300),
+    (df_2019['cod_suc'] == 320),
+    (df_2019['cod_suc'] == 340),
+    (df_2019['cod_suc'] == 350),
+    (df_2019['cod_suc'] == 360)
+]
+values = [
+    "No Aplica", "Cedro",
+    "Inaya", "Nogal", "Portones", "Torreon",
+    "Yari", "Arboleda", "Cendal", "Ariza",
+    "Entidad Gestora", "Narval", "Diagonal",
+    "Nogal - Villavicencio", "Torreon - Curso Estudios",
+    "El Cedro - Neiva", "Auxiliares Externas",
+    "Belayes", "La Casona", "Mirabal", "Rocalla",
+    "Serrania", "Icsef", "Colegio Integral Femenino",
+    "Gimnasio Tundama", "Casanueva", "Fondo Sacerdotes",
+    "Casanueva Admon", "Apartamiento 116",
+    "Apoyo Venezuela", "Apoyo Familias Juventus",
+    "Admon Terceros", "Mujeres Escasos Recursos"]
+# create a new column. Asignar los valores dependiendo de las condiciones
+df_2019['destino_donacion'] = np.select(conditions, values)
 
 df_2019.to_csv('./contabilidad_limpios/Auxiliar_Donantes_2019.csv',
                index=False, encoding='utf-8')
@@ -566,7 +707,77 @@ values = ['enero', 'febrero', 'marzo', 'abril', 'mayo',
 df_2020['mes'] = np.select(conditions, values)
 # print(df_2020['mes'])
 
-print(df_2020.head())
+###########################################
+# crear columna fuente de donación sa partir de categoria cco
+
+conditions = [
+    (df_2020['categoria_cco'] == 21),
+    (df_2020['categoria_cco'] == 22),
+    (df_2020['categoria_cco'] == 23),
+    (df_2020['categoria_cco'] == 4),
+    (df_2020['categoria_cco'] == 6)
+]
+values = ['D. Cooperadoras', 'D. Empresas', 'D. Particulares',
+          'Mantenimineto Centros', 'Eventos, Actividades y Productos']
+
+# create a new column. Asignar los valores dependiendo de las condiciones
+df_2020['origen_donacion'] = np.select(conditions, values)
+
+###########################################
+# crear columna fuente de donación sa partir de categoria cco
+
+conditions = [
+    (df_2020['cod_suc'] == 0),
+    (df_2020['cod_suc'] == 5),
+    (df_2020['cod_suc'] == 10),
+    (df_2020['cod_suc'] == 15),
+    (df_2020['cod_suc'] == 20),
+    (df_2020['cod_suc'] == 25),
+    (df_2020['cod_suc'] == 30),
+    (df_2020['cod_suc'] == 35),
+    (df_2020['cod_suc'] == 40),
+    (df_2020['cod_suc'] == 45),
+    (df_2020['cod_suc'] == 50),
+    (df_2020['cod_suc'] == 55),
+    (df_2020['cod_suc'] == 60),
+    (df_2020['cod_suc'] == 85),
+    (df_2020['cod_suc'] == 90),
+    (df_2020['cod_suc'] == 95),
+    (df_2020['cod_suc'] == 100),
+    (df_2020['cod_suc'] == 105),
+    (df_2020['cod_suc'] == 110),
+    (df_2020['cod_suc'] == 115),
+    (df_2020['cod_suc'] == 120),
+    (df_2020['cod_suc'] == 125),
+    (df_2020['cod_suc'] == 205),
+    (df_2020['cod_suc'] == 210),
+    (df_2020['cod_suc'] == 215),
+    (df_2020['cod_suc'] == 220),
+    (df_2020['cod_suc'] == 225),
+    (df_2020['cod_suc'] == 250),
+    (df_2020['cod_suc'] == 300),
+    (df_2020['cod_suc'] == 320),
+    (df_2020['cod_suc'] == 340),
+    (df_2020['cod_suc'] == 350),
+    (df_2020['cod_suc'] == 360)
+]
+values = [
+    "No Aplica", "Cedro",
+    "Inaya", "Nogal", "Portones", "Torreon",
+    "Yari", "Arboleda", "Cendal", "Ariza",
+    "Entidad Gestora", "Narval", "Diagonal",
+    "Nogal - Villavicencio", "Torreon - Curso Estudios",
+    "El Cedro - Neiva", "Auxiliares Externas",
+    "Belayes", "La Casona", "Mirabal", "Rocalla",
+    "Serrania", "Icsef", "Colegio Integral Femenino",
+    "Gimnasio Tundama", "Casanueva", "Fondo Sacerdotes",
+    "Casanueva Admon", "Apartamiento 116",
+    "Apoyo Venezuela", "Apoyo Familias Juventus",
+    "Admon Terceros", "Mujeres Escasos Recursos"]
+# create a new column. Asignar los valores dependiendo de las condiciones
+df_2020['destino_donacion'] = np.select(conditions, values)
+
+print(df_2020.tail())
 print(len(df_2020.index))
 print(df_2020.columns.values)
 
