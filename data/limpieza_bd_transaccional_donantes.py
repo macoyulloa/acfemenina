@@ -195,7 +195,7 @@ conditions = [
     (df_2018['categoria_cco'] == 4),
     (df_2018['categoria_cco'] == 6)
 ]
-values = ['D. Cooperadoras', 'D. Empresas', 'D. Particulares',
+values = ['D. Cooperadoras', 'D. Particulares', 'D. Empresas',
           'Mantenimineto Centros', 'Eventos, Actividades y Productos']
 
 # create a new column. Asignar los valores dependiendo de las condiciones
@@ -457,7 +457,7 @@ conditions = [
     (df_2019['categoria_cco'] == 4),
     (df_2019['categoria_cco'] == 6)
 ]
-values = ['D. Cooperadoras', 'D. Empresas', 'D. Particulares',
+values = ['D. Cooperadoras', 'D. Particulares', 'D. Empresas',
           'Mantenimineto Centros', 'Eventos, Actividades y Productos']
 
 # create a new column. Asignar los valores dependiendo de las condiciones
@@ -717,7 +717,7 @@ conditions = [
     (df_2020['categoria_cco'] == 4),
     (df_2020['categoria_cco'] == 6)
 ]
-values = ['D. Cooperadoras', 'D. Empresas', 'D. Particulares',
+values = ['D. Cooperadoras', 'D. Particulares', 'D. Empresas',
           'Mantenimineto Centros', 'Eventos, Actividades y Productos']
 
 # create a new column. Asignar los valores dependiendo de las condiciones
@@ -784,18 +784,129 @@ print(df_2020.columns.values)
 df_2020.to_csv('./contabilidad_limpios/Auxiliar_Donantes_2020.csv',
                index=False, encoding='utf-8')
 
-#df_2018 = df_2018.groupby(['cod_ter']).first()
-# print(len(df_2018))
-#df_2019 = df_2019.groupby(['cod_ter']).first()
-# print(len(df_2019))
-#df_2020 = df_2020.groupby(['cod_ter']).first()
-# print(len(df_2020))
-#df_total = pd.merge(df_2018, df_2019, on='cod_ter', how='outer')
-#df_total = pd.merge(df_total, df_2020, on='cod_ter', how='outer')
-
+###########################################################
+# concat all the database
 df_total = pd.concat([df_2018, df_2019, df_2020], ignore_index=True)
+###########################################################
+# eliminar a Limmat, casa atípico
+index_names = df_total[df_total['cod_ter'] == 107300142].index
+df_total.drop(index_names, inplace=True)
+# eliminar donaciones de 0 pesos
+index_names = df_total[df_total['cre_mov'] == 0].index
+df_total.drop(index_names, inplace=True)
+
+##############################################################
+# columna rango de donacion
+# cooperadoras
+print("cooperadoras")
+df1 = df_total.loc[df_total['categoria_cco'] == 21]
+#minimo = df1['cre_mov'][df1['cre_mov'].ne(0)].min()
+minimo = df1['cre_mov'].min()
+maximo = df1['cre_mov'].max()
+clases = (maximo - minimo) / 7
+plt.hist(x=df1['cre_mov'], bins=30, color='#F2AB6D', rwidth=0.85)
+plt.title('Histograma coop')
+plt.xlabel('Total donación')
+plt.ylabel('Frecuencia')
+plt.show()
+bins = [0, 450000, 900000, 1350000, 1800000, 2250000, 2700000, 3150000,
+        3600000, 4050000, np.inf]
+names = ['0-450k', '451k-900k', '901k-1.350k', '1.351k-1.800k', '1.801k-2.250k',
+         '2.251k-2.700k', '2.701k-3.150k', '3.151k-3.600k', '3.601k-4.050k', '+4.051k']
+df1['rango_donacion'] = pd.cut(df1['cre_mov'], bins, labels=names)
+print(df1.groupby(['rango_donacion'])['rango_donacion'].count())
+print(df1.groupby(['rango_donacion'])['cre_mov'].sum())
+
+# supernumerarias
+print("supernumerarias")
+df2 = df_total.loc[df_total['categoria_cco'] == 22]
+# minimo = df2['cre_mov'][df2['cre_mov'].ne(0)].min()
+minimo = df2['cre_mov'].min()
+maximo = df2['cre_mov'].max()
+clases = (maximo - minimo) / 7
+plt.hist(x=df2['cre_mov'], bins=30, color='#F2AB6D', rwidth=0.85)
+plt.title('Histograma coop')
+plt.xlabel('Total donación')
+plt.ylabel('Frecuencia')
+plt.show()
+bins = [0, 1000000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000,
+        8000000, np.inf]
+names = ['0-1.000k', '1.001k-2.000k', '2.001k-3.000k', '3.001k-4.000k', '4.001k-5.000k',
+         '5.001k-6.000k', '6.001k-7.000k', '7.001k-8.000k', '+8.001']
+df2['rango_donacion'] = pd.cut(df2['cre_mov'], bins, labels=names)
+print(df2.groupby(['rango_donacion'])['rango_donacion'].count())
+print(df2.groupby(['rango_donacion'])['cre_mov'].sum())
+
+# empresas
+print("empresas")
+df3 = df_total.loc[df_total['categoria_cco'] == 23]
+# minimo = df3['cre_mov'][df3['cre_mov'].ne(0)].min()
+minimo = df3['cre_mov'].min()
+maximo = df3['cre_mov'].max()
+clases = (maximo - minimo) / 7
+print(clases)
+plt.hist(x=df3['cre_mov'], bins=30, color='#F2AB6D', rwidth=0.85)
+plt.title('Histograma coop')
+plt.xlabel('Total donación')
+plt.ylabel('Frecuencia')
+plt.show()
+bins = [0, 1000000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000,
+        8000000, np.inf]
+names = ['0-1.000k', '1.001k-2.000k', '2.001k-3.000k', '3.001k-4.000k', '4.001k-5.000k',
+         '5.001k-6.000k', '6.001k-7.000k', '7.001k-8.000k', '+8.001']
+df3['rango_donacion'] = pd.cut(df3['cre_mov'], bins, labels=names)
+print(df3.groupby(['rango_donacion'])['rango_donacion'].count())
+print(df3.groupby(['rango_donacion'])['cre_mov'].sum())
+
+# mantenimiento
+print("matenimiento")
+df4 = df_total.loc[df_total['categoria_cco'] == 4]
+# minimo = df3['cre_mov'][df3['cre_mov'].ne(0)].min()
+minimo = df4['cre_mov'].min()
+maximo = df4['cre_mov'].max()
+clases = (maximo - minimo) / 7
+print(minimo)
+print(maximo)
+plt.hist(x=df4['cre_mov'], bins=30, color='#F2AB6D', rwidth=0.85)
+plt.title('Histograma coop')
+plt.xlabel('Total donación')
+plt.ylabel('Frecuencia')
+plt.show()
+bins = [0, 10000000, 20000000, 30000000, 40000000, 50000000, 60000000, 70000000,
+        80000000, np.inf]
+names = ['0-10.000k', '10.001k-20.000k', '20.001k-30.000k', '30.001k-40.000k', '40.001k-50.000k',
+         '50.001k-60.000k', '60.001k-70.000k', '70.001k-80.000k', '+80.001']
+df4['rango_donacion'] = pd.cut(df4['cre_mov'], bins, labels=names)
+print(df4.groupby(['rango_donacion'])['rango_donacion'].count())
+print(df4.groupby(['rango_donacion'])['cre_mov'].sum())
+
+# eventos, actividades y productos
+print("eventos, actividades, productos")
+df5 = df_total.loc[df_total['categoria_cco'] == 6]
+# minimo = df3['cre_mov'][df3['cre_mov'].ne(0)].min()
+minimo = df5['cre_mov'].min()
+maximo = df5['cre_mov'].max()
+clases = (maximo - minimo) / 7
+print(minimo)
+print(maximo)
+plt.hist(x=df5['cre_mov'], bins=30, color='#F2AB6D', rwidth=0.85)
+plt.title('Histograma coop')
+plt.xlabel('Total donación')
+plt.ylabel('Frecuencia')
+plt.show()
+bins = [0, 450000, 900000, 1350000, 1800000, 2250000, 2700000, 3150000,
+        3600000, 4050000, np.inf]
+names = ['0-450k', '451k-900k', '901k-1.350k', '1.351k-1.800k', '1.801k-2.250k',
+         '2.251k-2.700k', '2.701k-3.150k', '3.151k-3.600k', '3.601k-4.050k', '+4.051k']
+df5['rango_donacion'] = pd.cut(df5['cre_mov'], bins, labels=names)
+print(df5.groupby(['rango_donacion'])['rango_donacion'].count())
+print(df5.groupby(['rango_donacion'])['cre_mov'].sum())
+
+
+df_total = pd.concat([df1, df2, df3, df4, df5], ignore_index=True)
+print(df_total.columns.values)
 df_total.to_csv('./contabilidad_limpios/Auxiliar_Donantes.csv',
                 index=False, encoding='utf-8')
-
+print("despues de limmat")
 print(len(df_total))
-print(df_total.tail())
+# print(df_total.tail())
